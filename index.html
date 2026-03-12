@@ -7,9 +7,7 @@
     <title>Свадебный Девичник</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
@@ -26,6 +24,7 @@
             /* Soft sage green for spring leaves */
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Montserrat', sans-serif;
+            --font-script: 'Great Vibes', 'Anastasia Script', cursive;
         }
 
         * {
@@ -125,22 +124,23 @@
         }
 
         .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 10vw, 7rem); /* Slightly larger for script */
             color: var(--text-color);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .hero-names {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: clamp(2rem, 6vw, 3.5rem);
             color: var(--accent-gold);
             margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: 2px;
         }
 
-        .hero-date {
-            font-size: 1.7rem;
-            letter-spacing: 0.25em;
-            font-weight: 300;
-            margin-bottom: 30px;
+        .script-font {
+            font-family: var(--font-script);
+            font-weight: 400;
         }
 
         .hero-logo {
@@ -205,6 +205,49 @@
             stroke-width: 1;
             opacity: 0.2;
             pointer-events: none;
+        }
+
+        /* --- Gate Middle Mirrored Decorative Squares --- */
+        .gate-frame {
+            position: absolute;
+            top: 25%;
+            bottom: 25%;
+            border: 2px solid var(--accent-gold);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .gate-left .gate-frame {
+            left: 15%;
+            right: 0;
+            border-right: none;
+        }
+
+        .gate-right .gate-frame {
+            left: 0;
+            right: 15%;
+            border-left: none;
+        }
+
+        .gate-inner-square {
+            position: absolute;
+            top: 40%;
+            bottom: 40%;
+            border: 2px solid var(--accent-gold);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .gate-left .gate-inner-square {
+            right: 0;
+            width: 25%;
+            border-right: none;
+        }
+
+        .gate-right .gate-inner-square {
+            left: 0;
+            width: 25%;
+            border-left: none;
         }
 
         /* --- Ornate Floral Corners --- */
@@ -373,7 +416,7 @@
         }
 
         .selected-date {
-            color: var(--text-color);
+            color: white;
             font-weight: 600;
         }
 
@@ -384,12 +427,15 @@
             transform: translate(-50%, -46%);
             width: 42px;
             height: 42px;
-            fill: none;
-            stroke: var(--accent-orange);
-            stroke-width: 1.2px;
+            fill: var(--accent-orange);
             opacity: 0.9;
-            z-index: -1;
+            z-index: 0;
             animation: heartPulse 2.5s infinite ease-in-out;
+        }
+
+        .date-number {
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes heartPulse {
@@ -592,10 +638,9 @@
         <!-- Content Revealed Behind Gates -->
         <div class="hero-content fade-up" id="hero-text">
             <img src="logo.png" alt="Лого" class="hero-logo">
-            <h1 class="hero-title">Девичник:</h1>
-            <h2 class="hero-names serif">Мирамир & Камила<br><span
-                    style="font-size: 0.6em; color: var(--text-color);">и</span><br>Шохруз & Севиль</h2>
-            <p class="hero-date">03 . 04 . 2026</p>
+            <h1 class="hero-title script-font">ДЕВИЧНИК</h1>
+            <h2 class="hero-names script-font">Мирамир & Камила<br><span
+                    style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
             <p class="hero-welcome">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
                 атмосферу элегантности и роскоши.</p>
         </div>
@@ -671,6 +716,8 @@
                 <svg class="floral-corner bottom-outer" viewBox="0 0 200 200">
                     <use href="#corner-cluster" />
                 </svg>
+                <div class="gate-frame"></div>
+                <div class="gate-inner-square"></div>
             </div>
 
             <div class="gate gate-right">
@@ -686,6 +733,8 @@
                 <svg class="floral-corner bottom-outer" viewBox="0 0 200 200">
                     <use href="#corner-cluster" />
                 </svg>
+                <div class="gate-frame"></div>
+                <div class="gate-inner-square"></div>
             </div>
         </div>
 
@@ -714,7 +763,7 @@
                 <span>1</span>
                 <span>2</span>
                 <span class="selected-date">
-                    3
+                    <span class="date-number">3</span>
                     <svg class="date-heart" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
@@ -731,12 +780,16 @@
             </div>
         </div>
 
-        <div class="info-block fade-up">
+        <div class="info-block fade-up" style="width: 100%; max-width: 600px;">
             <h3 class="info-title">Локация</h3>
             <p class="info-text" style="font-size: 1.5rem;">Ресторан Бехруз</p>
             <p class="info-text">Начало вечера в 18:00</p>
+            
+            <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid var(--accent-gold); margin-top: 25px;">
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af7d6d3969e0618de7d5c58129bb809c91629ed3714bca88a5dc89afc6dc13101&amp;source=constructor" width="100%" height="350" frameborder="0" style="display: block;"></iframe>
+            </div>
             <a href="https://yandex.uz/maps/-/CPB5vJ94" target="_blank" class="btn btn-gold"
-                style="margin-top: 15px;">Открыть в Яндекс Картах</a>
+                style="margin-top: 20px;">Открыть в картах</a>
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
