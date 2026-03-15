@@ -12,16 +12,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         :root {
-            --bg-color: #FDFBF7; /* Matte paper white */
-            --text-color: #721C24; /* Deep Burgundy */
-            --gate-color: #FDFBF7;
-            --accent-gold: #721C24; /* Changed all accents to Burgundy for etched look */
-            --accent-orange: #721C24;
-            --accent-rose: #721C24;
-            --accent-leaf: #721C24;
+            --bg-color: #FAF9F6;
+            --text-color: #1A3021;
+            /* Ultra light warm pastel cream for spring elegance */
+            --gate-color: #F8F4EE;
+            --accent-gold: #D4AF37;
+            --accent-orange: #E67E22;
+            --accent-rose: #EEDCD3;
+            /* Soft pastel rose for spring florals */
+            --accent-leaf: #B5C4B1;
+            /* Soft sage green for spring leaves */
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Montserrat', sans-serif;
             --font-script: 'Great Vibes', 'Anastasia Script', cursive;
+            --bridgerton-red: #A34A59; /* Classic faded society paper red */
         }
 
         * {
@@ -31,64 +35,88 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            padding: 40px; /* Neoclassical borders wrapper padding */
+            background-color: #E6E2D6;
+            padding: 15px; /* Neoclassical borders wrapper padding */
             color: var(--text-color);
             font-family: var(--font-sans);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-        @media (max-width: 600px) { body { padding: 15px; margin: 0; } }
+        @media (max-width: 600px) { body { padding: 8px; margin: 0; } }
         
-        /* Neoclassical Page Frame / Paper Container */
+        /* Classic Bridgerton Society Paper Frame */
         .page-frame {
             position: relative;
-            background-color: transparent;
-            padding: 40px; 
-            margin: 0 auto;
-            width: 100%; 
+            background-color: var(--bg-color);
+            padding: 55px 45px; 
+            margin: 5% auto;
+            width: 90%; 
             max-width: 800px;
-            min-height: calc(100vh - 80px);
-            border: 1.5px solid var(--text-color);
-            box-shadow: none;
+            min-height: calc(90vh);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15), inset 0 0 100px rgba(163, 74, 89, 0.05); /* Soft burgundy shadow */
+            overflow: hidden; /* Contains the intricate frames */
         }
         @media (max-width: 600px) { 
             .page-frame { 
-                width: 92%; 
+                width: 94%; 
                 margin: 4% auto; 
-                padding: 25px 15px;
+                padding: 45px 20px;
                 min-height: calc(92vh); 
             }
             .hero-title { font-size: clamp(2.5rem, 8vw, 4rem) !important; }
             .hero-names { font-size: clamp(1.2rem, 3.5vw, 2rem) !important; }
         }
-            .hero-names { font-size: clamp(1.2rem, 3.5vw, 2rem) !important; }
-        }
         
+        /* The Outer Dense Floral Border */
+        .page-frame::after {
+            content: '';
+            position: absolute;
+            inset: 6px; 
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0.9;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Cg stroke='%23A34A59' fill='none' stroke-width='1.2' opacity='0.85'%3E%3Cpath d='M0,50 Q25,20 50,50 T100,50'/%3E%3Cpath d='M50,0 Q80,25 50,50 T50,100'/%3E%3Cg transform='translate(50,50)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M0,-4 C-6,-8 -8,0 0,4 C8,0 6,-8 0,-4 Z' stroke-width='1.5'/%3E%3Cpath d='M8,8 C15,12 12,20 8,8 Z' fill='%23A34A59'/%3E%3Cpath d='M-8,-8 C-15,-12 -12,-20 -8,-8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(0,0) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M8,8 C15,12 12,20 8,8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(100,100) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M-8,-8 C-15,-12 -12,-20 -8,-8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(100,0) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M-8,8 C-15,12 -12,20 -8,8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(0,100) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M8,-8 C15,-12 12,-20 8,-8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cpath d='M25,25 C15,35 15,15 25,25 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Cpath d='M75,75 C85,65 85,85 75,75 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Cpath d='M25,75 C15,65 35,65 25,75 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Cpath d='M75,25 C85,35 65,35 75,25 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Ccircle cx='20' cy='50' r='2' fill='%23A34A59'/%3E%3Ccircle cx='80' cy='50' r='2' fill='%23A34A59'/%3E%3Ccircle cx='50' cy='20' r='2' fill='%23A34A59'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23A34A59'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 70px; 
+            /* Hollow center mask to only show flowers on the outer 20px edge */
+            -webkit-mask-image: 
+                linear-gradient(#000, #000), linear-gradient(#000, #000),
+                linear-gradient(#000, #000), linear-gradient(#000, #000);
+            -webkit-mask-position: top, bottom, left, right;
+            -webkit-mask-size: 100% 20px, 100% 20px, 20px 100%, 20px 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-image: 
+                linear-gradient(#000, #000), linear-gradient(#000, #000),
+                linear-gradient(#000, #000), linear-gradient(#000, #000);
+            mask-position: top, bottom, left, right;
+            mask-size: 100% 20px, 100% 20px, 20px 100%, 20px 100%;
+            mask-repeat: no-repeat;
+        }
+
+        /* The Bridgerton Elegant Double Line Frame */
         .page-frame::before {
             content: '';
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px dashed var(--text-color);
+            /* Inset: 6px edge + 20px floral + 4px gap = 30px from edge */
+            inset: 30px; 
+            border: 1.5px solid var(--bridgerton-red);
+            /* Inner 0.5px line with 3px gap */
+            box-shadow: inset 0 0 0 3px transparent, inset 0 0 0 3.5px var(--bridgerton-red);
+            border-radius: 0;
             pointer-events: none;
             z-index: 30;
         }
         @media (max-width: 600px) {
-            .page-frame::before { top: 8px; left: 8px; right: 8px; bottom: 8px; border: 1px dashed var(--text-color); }
+            .page-frame::after { 
+                inset: 4px; 
+                -webkit-mask-size: 100% 16px, 100% 16px, 16px 100%, 16px 100%; 
+                mask-size: 100% 16px, 100% 16px, 16px 100%, 16px 100%; 
+                background-size: 50px; 
+            }
+            .page-frame::before { inset: 23px; box-shadow: inset 0 0 0 2px transparent, inset 0 0 0 2.5px var(--bridgerton-red); }
         }
         
-        /* Elegant Corners for Frame */
-        .f-corner {
-            position: absolute;
-            width: 20px; height: 20px;
-            border: 2px solid var(--accent-gold);
-            border-radius: 4px; /* subtle soft corner */
-            z-index: 31; pointer-events: none;
-        }
-        .fc-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
-        .fc-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
-        .fc-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
-        .fc-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+        /* Hide old neoclassical corners */
+        .f-corner { display: none !important; }
 
         h1,
         h2,
@@ -296,18 +324,16 @@
         }
 
         .hero-title {
-            font-size: clamp(2rem, 7vw, 4rem);
+            font-size: clamp(3rem, 10vw, 7rem); /* Slightly larger for script */
             color: var(--text-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Added margin to push names slightly down */
             text-transform: uppercase;
-            font-family: var(--font-serif);
-            letter-spacing: 0.1em;
         }
 
         .hero-names {
             font-weight: 400;
-            font-size: clamp(1.2rem, 3.5vw, 2rem);
-            color: var(--text-color);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--accent-gold);
             margin-bottom: 20px;
         }
 
@@ -316,19 +342,10 @@
             font-weight: 400;
         }
 
-        .hero-logo-container {
-            position: absolute;
-            top: -50px; /* Offset to break the top border line */
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-color); /* Matches paper background to break the line cleanly */
-            padding: 0 20px;
-            z-index: 50;
-        }
-
         .hero-logo {
-            width: 100px;
+            width: 140px;
             height: auto;
+            margin-bottom: 15px;
             object-fit: contain;
         }
 
@@ -810,9 +827,6 @@
 
     <!-- Neoclassical Outer Frame wrapping the entire page content -->
     <div class="page-frame">
-        <div class="hero-logo-container">
-            <img src="logo.png?v=5" alt="Лого" class="hero-logo">
-        </div>
         <!-- Frame Corners -->
         <div class="f-corner fc-tl"></div>
         <div class="f-corner fc-tr"></div>
@@ -826,44 +840,46 @@
             <div class="hero-content fade-up" id="hero-text" style="z-index: 10;">
                 
                 <!-- Elegant Floating Vector Florals inside the slide (smaller logic for mobile view) -->
-                <!-- Overlapping paper edges slightly -->
-                <svg class="floating-flower f-top-left" viewBox="-50 -50 100 100" style="width: min(30vw, 140px); left: -10%; top: -5%;"><use href="#floating-bouquet" transform="rotate(35) scale(0.9)"/></svg>
-                <svg class="floating-flower f-top-right" viewBox="-50 -50 100 100" style="width: min(28vw, 130px); right: -8%; top: 5%;"><use href="#flower-spring" transform="scale(1.2) rotate(-50)"/></svg>
-                <svg class="floating-flower f-mid-left" viewBox="-50 -50 100 100" style="width: min(20vw, 100px); left: -5%;"><use href="#leaf-gold" transform="scale(1.2) rotate(15)"/></svg>
-                <svg class="floating-flower f-mid-right" viewBox="-50 -50 100 100" style="width: min(32vw, 160px); right: -15%;"><use href="#floating-bouquet" transform="rotate(-110) scale(0.85)"/></svg>
-                <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: min(30vw, 150px); left: -12%;"><use href="#floating-bouquet" transform="rotate(85) scale(0.8)"/></svg>
-                <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); right: -5%;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
+                <svg class="floating-flower f-top-left" viewBox="-50 -50 100 100" style="width: min(30vw, 140px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(35) scale(0.9)"/></svg>
+                <svg class="floating-flower f-top-right" viewBox="-50 -50 100 100" style="width: min(28vw, 130px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.2) rotate(-50)"/></svg>
+                <svg class="floating-flower f-mid-left" viewBox="-50 -50 100 100" style="width: min(20vw, 100px); opacity: 0.85;"><use href="#leaf-gold" transform="scale(1.2) rotate(15)"/></svg>
+                <svg class="floating-flower f-mid-right" viewBox="-50 -50 100 100" style="width: min(32vw, 160px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(-110) scale(0.85)"/></svg>
+                <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: min(30vw, 150px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(85) scale(0.8)"/></svg>
+                <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
 
-                <h1 class="hero-title" style="margin-top: 80px; margin-bottom: 15px;">СВАДЕБНЫЙ ДЕВИЧНИК</h1>
+                <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px);">
+                <h1 class="hero-title" style="margin-bottom: 15px;">ДЕВИЧНИК</h1>
                 <h2 class="hero-names script-font">Мирамир & Камила<br><span
                         style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
                 <p class="hero-welcome" style="font-size: clamp(0.9rem, 4vw, 1.2rem);">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
                     атмосферу элегантности и роскоши.</p>
             </div>
 
-            <!-- SVG Definitions for Ornate Spring Florals (Monochromatic Etched Style) -->
+            <!-- SVG Definitions for Ornate Spring Florals -->
             <svg width="0" height="0" style="position:absolute;">
                 <defs>
-                    <g id="leaf-soft" fill="none" stroke="var(--text-color)" stroke-width="1.2" opacity="0.8">
-                        <path d="M0,0 C15,-20 40,-20 50,-40 C35,-25 10,-25 0,0" />
-                        <path d="M0,0 C15,-20 40,-20 50,-40" stroke-width="0.8" />
+                    <g id="leaf-soft">
+                        <path d="M0,0 C15,-20 40,-20 50,-40 C35,-25 10,-25 0,0" fill="var(--bridgerton-red)" opacity="0.3" />
+                        <path d="M0,0 C15,-20 40,-20 50,-40" fill="none" stroke="var(--bridgerton-red)" stroke-width="1.5" opacity="0.6" />
                     </g>
-                    <g id="leaf-gold" fill="none" stroke="var(--text-color)" stroke-width="1.2" opacity="0.8">
-                        <path d="M0,0 C-15,-20 -40,-20 -50,-40 C-35,-25 -10,-25 0,0" />
-                        <path d="M0,0 C-15,-20 -40,-20 -50,-40" stroke-width="0.8" />
+                    <g id="leaf-gold">
+                        <path d="M0,0 C-15,-20 -40,-20 -50,-40 C-35,-25 -10,-25 0,0" fill="var(--bridgerton-red)" opacity="0.4" />
+                        <path d="M0,0 C-15,-20 -40,-20 -50,-40" fill="none" stroke="var(--bridgerton-red)" stroke-width="1" opacity="0.8" />
                     </g>
-                    <g id="flower-spring" fill="none" stroke="var(--text-color)" stroke-width="1.2" opacity="0.8">
-                        <path d="M0,-5 C10,-25 25,-15 0,10 C-25,-15 -10,-25 0,-5 Z" />
-                        <path d="M5,0 C25,10 15,25 -10,0 C15,-25 25,-10 5,0 Z" />
-                        <path d="M-5,0 C-25,-10 -15,-25 10,0 C-15,25 -25,10 -5,0 Z" />
-                        <circle cx="0" cy="0" r="4.5" />
-                        <circle cx="5" cy="3" r="2" />
-                        <circle cx="-4" cy="-4" r="1.5" />
+                    <g id="flower-spring">
+                        <circle cx="0" cy="0" r="25" fill="var(--bridgerton-red)" opacity="0.1" filter="blur(6px)" />
+                        <path d="M0,-5 C10,-25 25,-15 0,10 C-25,-15 -10,-25 0,-5 Z" fill="var(--bridgerton-red)" opacity="0.85" />
+                        <path d="M5,0 C25,10 15,25 -10,0 C15,-25 25,-10 5,0 Z" fill="var(--bridgerton-red)" opacity="0.85" />
+                        <path d="M-5,0 C-25,-10 -15,-25 10,0 C-15,25 -25,10 -5,0 Z" fill="var(--bridgerton-red)" opacity="0.85" />
+                        <circle cx="0" cy="0" r="4.5" fill="var(--bg-color)" />
+                        <circle cx="5" cy="3" r="2" fill="var(--bridgerton-red)" opacity="0.9" />
+                        <circle cx="-4" cy="-4" r="1.5" fill="var(--bridgerton-red)" />
+                        <circle cx="0" cy="-4" r="1" fill="#FFF" />
                     </g>
-                    <g id="flower-small" fill="none" stroke="var(--text-color)" stroke-width="1.2" opacity="0.8">
-                        <path d="M0,-2 C5,-10 12,-8 0,5 C-12,-8 -5,-10 0,-2 Z" />
-                        <path d="M2,0 C10,5 8,12 -5,0 C8,-12 10,-5 2,0 Z" />
-                        <circle cx="0" cy="0" r="2.5" />
+                    <g id="flower-small">
+                        <path d="M0,-2 C5,-10 12,-8 0,5 C-12,-8 -5,-10 0,-2 Z" fill="#fff" opacity="0.85" />
+                        <path d="M2,0 C10,5 8,12 -5,0 C8,-12 10,-5 2,0 Z" fill="#fff" opacity="0.85" />
+                        <circle cx="0" cy="0" r="2.5" fill="var(--bridgerton-red)" />
                     </g>
                     <g id="floating-bouquet">
                         <use href="#flower-spring" x="0" y="0" transform="scale(1)" />
@@ -871,7 +887,7 @@
                         <use href="#leaf-soft" x="25" y="-15" transform="rotate(45)" />
                         <use href="#flower-small" x="30" y="20" transform="scale(1.2)" />
                         <use href="#flower-small" x="-15" y="-20" transform="scale(1.1)" />
-                        <path d="M-10,-10 Q-30,-30 -40,-20 M20,20 Q40,40 50,20" stroke="var(--text-color)" fill="none" stroke-width="0.8" opacity="0.8"/>
+                        <path d="M-10,-10 Q-30,-30 -40,-20 M20,20 Q40,40 50,20" stroke="var(--bridgerton-red)" fill="none" stroke-width="0.8" opacity="0.6"/>
                     </g>
                 </defs>
             </svg>
@@ -1030,18 +1046,18 @@
             .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6 }, 0.4)
             .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.5);
 
-        // --- Gentle Breathing Wind Animation for Flowers ---
+        // --- Continuous Wiggle for Flowers ---
         const flowers = gsap.utils.toArray(".floating-flower");
         flowers.forEach((flower, i) => {
             gsap.to(flower, {
-                skewX: () => gsap.utils.random(-3, 3), // Subtle wind skew
-                rotation: () => "+=" + gsap.utils.random(-2, 2), // Very slight slow rotation
-                scale: 1.02, // Subtle breathing effect
-                duration: () => gsap.utils.random(4, 7), // Much slower speed
+                x: () => gsap.utils.random(-10, 10),
+                y: () => gsap.utils.random(-10, 10),
+                rotation: () => gsap.utils.random(-4, 4),
+                duration: () => gsap.utils.random(2.5, 4),
                 yoyo: true,
                 repeat: -1,
                 ease: "sine.inOut",
-                delay: i * 0.5
+                delay: i * 0.2
             });
         });
 
