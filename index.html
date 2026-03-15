@@ -34,12 +34,53 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: #E6E2D6;
+            padding: 15px; /* Neoclassical borders wrapper padding */
             color: var(--text-color);
             font-family: var(--font-sans);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
+        @media (max-width: 600px) { body { padding: 8px; margin: 0; } }
+        
+        /* Neoclassical Page Frame */
+        .page-frame {
+            position: relative;
+            background-color: var(--bg-color);
+            border: 2px solid var(--accent-gold);
+            min-height: calc(100vh - 30px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            margin: 0 auto;
+            max-width: 800px; /* Keep mobile-first invitation proportions elegantly centered */
+        }
+        @media (max-width: 600px) { 
+            .page-frame { min-height: calc(100vh - 16px); } 
+            
+            /* Add some responsiveness to titles for mobile */
+            .hero-title { font-size: clamp(2.5rem, 8vw, 4rem) !important; }
+            .hero-names { font-size: clamp(1.2rem, 3.5vw, 2rem) !important; }
+        }
+        
+        .page-frame::before {
+            content: '';
+            position: absolute;
+            top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            pointer-events: none;
+            z-index: 90;
+        }
+        
+        /* Elegant Corners for Frame */
+        .f-corner {
+            position: absolute;
+            width: 15px; height: 15px;
+            border: 1.5px solid var(--accent-gold);
+            z-index: 91; pointer-events: none;
+        }
+        .fc-tl { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+        .fc-tr { top: 3px; right: 3px; border-left: none; border-bottom: none; }
+        .fc-bl { bottom: 3px; left: 3px; border-right: none; border-top: none; }
+        .fc-br { bottom: 3px; right: 3px; border-left: none; border-top: none; }
 
         h1,
         h2,
@@ -61,6 +102,82 @@
         ::-webkit-scrollbar-thumb {
             background: var(--accent-gold);
             border-radius: 4px;
+        }
+
+        
+        /* --- Curtains Layer --- */
+        .hero-wrapper {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 30px);
+            overflow: hidden; /* contain curtains */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        @media (max-width: 600px) { .hero-wrapper { height: calc(100vh - 16px); } }
+        
+        .curtains-layer {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        .curtain {
+            position: absolute;
+            background-color: #0d2c1e; /* Deep Emerald */
+            background-image: repeating-linear-gradient(
+                to right,
+                rgba(0,0,0,0.3) 0%,
+                rgba(255,255,255,0.08) 5%,
+                rgba(0,0,0,0.4) 15%,
+                rgba(255,255,255,0.03) 20%
+            );
+            background-size: 100px 100%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            will-change: transform;
+        }
+
+        .curtain-left {
+            top: 0; left: 0;
+            width: 50%; height: 100%;
+            transform-origin: left;
+            border-right: 2px solid var(--accent-gold);
+        }
+
+        .curtain-right {
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            transform-origin: right;
+            border-left: 2px solid var(--accent-gold);
+        }
+
+        .curtain-valance {
+            top: -10px; left: -10px; right: -10px;
+            height: 25vh;
+            min-height: 120px;
+            background-color: #0d2c1e;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.4) 0%,
+                rgba(255,255,255,0.08) 10%,
+                rgba(0,0,0,0.5) 30%,
+                rgba(255,255,255,0.03) 40%
+            );
+            background-size: 100% 50px;
+            border-bottom: 3px solid var(--accent-gold);
+            border-radius: 0 0 50% 50% / 0 0 40px 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            transform-origin: top;
+            z-index: 41;
+        }
+        
+        .valance-fringe {
+            position: absolute;
+            bottom: -8px; left: 0; right: 0;
+            height: 8px;
+            background-image: repeating-linear-gradient(to right, var(--accent-gold) 0%, var(--accent-gold) 4px, transparent 4px, transparent 8px);
         }
 
         /* --- Top Emblem --- */
@@ -626,163 +743,89 @@
 
 <body>
 
-    <!-- Top Emblem -->
-    <div class="top-emblem-section">
-        <!-- Left Flora -->
-        <svg class="floral-ornament" viewBox="0 0 100 100">
-            <path d="M90 50 Q75 40 50 50 T10 50 Q25 60 50 50 T90 50" stroke="var(--accent-gold)" fill="none"
-                stroke-width="2" />
-            <path d="M50 10 Q60 25 50 50 T50 90 Q40 75 50 50 T50 10" stroke="var(--accent-gold)" fill="none"
-                stroke-width="2" />
-        </svg>
+    <!-- Neoclassical Outer Frame wrapping the entire page content -->
+    <div class="page-frame">
+        <!-- Frame Corners -->
+        <div class="f-corner fc-tl"></div>
+        <div class="f-corner fc-tr"></div>
+        <div class="f-corner fc-bl"></div>
+        <div class="f-corner fc-br"></div>
 
-        <div class="emblem-circle">
-            <!-- Victorian Profile Silhouette -->
-            <svg class="emblem-silhouette" viewBox="0 0 50 60">
-                <path d="M25 5 C15 5 10 15 15 25 C10 30 15 45 25 55 C35 45 40 30 35 25 C40 15 35 5 25 5 Z" />
+        <!-- Pinned Hero Section with Curtains -->
+        <section class="hero-wrapper" id="hero-curtains">
+
+            <!-- Content Revealed Behind Curtains -->
+            <div class="hero-content fade-up" id="hero-text" style="z-index: 10;">
+                
+                <!-- Elegant Floating Vector Florals inside the slide (smaller logic for mobile view) -->
+                <svg class="floating-flower f-top-left" viewBox="-50 -50 100 100" style="width: min(30vw, 140px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(35) scale(0.9)"/></svg>
+                <svg class="floating-flower f-top-right" viewBox="-50 -50 100 100" style="width: min(28vw, 130px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.2) rotate(-50)"/></svg>
+                <svg class="floating-flower f-mid-left" viewBox="-50 -50 100 100" style="width: min(20vw, 100px); opacity: 0.85;"><use href="#leaf-gold" transform="scale(1.2) rotate(15)"/></svg>
+                <svg class="floating-flower f-mid-right" viewBox="-50 -50 100 100" style="width: min(32vw, 160px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(-110) scale(0.85)"/></svg>
+                <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: min(30vw, 150px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(85) scale(0.8)"/></svg>
+                <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
+
+                <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px);">
+                <h1 class="hero-title" style="margin-bottom: 15px;">ДЕВИЧНИК</h1>
+                <h2 class="hero-names script-font">Мирамир & Камила<br><span
+                        style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
+                <p class="hero-welcome" style="font-size: clamp(0.9rem, 4vw, 1.2rem);">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
+                    атмосферу элегантности и роскоши.</p>
+            </div>
+
+            <!-- SVG Definitions for Ornate Spring Florals -->
+            <svg width="0" height="0" style="position:absolute;">
+                <defs>
+                    <g id="leaf-soft">
+                        <path d="M0,0 C15,-20 40,-20 50,-40 C35,-25 10,-25 0,0" fill="var(--accent-leaf)" opacity="0.6" />
+                        <path d="M0,0 C15,-20 40,-20 50,-40" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
+                    </g>
+                    <g id="leaf-gold">
+                        <path d="M0,0 C-15,-20 -40,-20 -50,-40 C-35,-25 -10,-25 0,0" fill="var(--accent-gold)" opacity="0.4" />
+                        <path d="M0,0 C-15,-20 -40,-20 -50,-40" fill="none" stroke="var(--accent-gold)" stroke-width="1" opacity="0.8" />
+                    </g>
+                    <g id="flower-spring">
+                        <circle cx="0" cy="0" r="25" fill="var(--accent-rose)" opacity="0.2" filter="blur(6px)" />
+                        <path d="M0,-5 C10,-25 25,-15 0,10 C-25,-15 -10,-25 0,-5 Z" fill="var(--accent-rose)" opacity="0.9" />
+                        <path d="M5,0 C25,10 15,25 -10,0 C15,-25 25,-10 5,0 Z" fill="var(--accent-rose)" opacity="0.9" />
+                        <path d="M-5,0 C-25,-10 -15,-25 10,0 C-15,25 -25,10 -5,0 Z" fill="var(--accent-rose)" opacity="0.9" />
+                        <circle cx="0" cy="0" r="4.5" fill="var(--accent-gold)" />
+                        <circle cx="5" cy="3" r="2" fill="var(--accent-orange)" opacity="0.9" />
+                        <circle cx="-4" cy="-4" r="1.5" fill="var(--accent-orange)" />
+                        <circle cx="0" cy="-4" r="1" fill="#FFF" />
+                    </g>
+                    <g id="flower-small">
+                        <path d="M0,-2 C5,-10 12,-8 0,5 C-12,-8 -5,-10 0,-2 Z" fill="#fff" opacity="0.85" />
+                        <path d="M2,0 C10,5 8,12 -5,0 C8,-12 10,-5 2,0 Z" fill="#fff" opacity="0.85" />
+                        <circle cx="0" cy="0" r="2.5" fill="var(--accent-gold)" />
+                    </g>
+                    <g id="floating-bouquet">
+                        <use href="#flower-spring" x="0" y="0" transform="scale(1)" />
+                        <use href="#leaf-gold" x="-20" y="10" transform="rotate(-30)" />
+                        <use href="#leaf-soft" x="25" y="-15" transform="rotate(45)" />
+                        <use href="#flower-small" x="30" y="20" transform="scale(1.2)" />
+                        <use href="#flower-small" x="-15" y="-20" transform="scale(1.1)" />
+                        <path d="M-10,-10 Q-30,-30 -40,-20 M20,20 Q40,40 50,20" stroke="var(--accent-gold)" fill="none" stroke-width="0.8" opacity="0.6"/>
+                    </g>
+                </defs>
             </svg>
-        </div>
 
-        <!-- Right Flora -->
-        <svg class="floral-ornament" style="transform: scaleX(-1);" viewBox="0 0 100 100">
-            <path d="M90 50 Q75 40 50 50 T10 50 Q25 60 50 50 T90 50" stroke="var(--accent-gold)" fill="none"
-                stroke-width="2" />
-            <path d="M50 10 Q60 25 50 50 T50 90 Q40 75 50 50 T50 10" stroke="var(--accent-gold)" fill="none"
-                stroke-width="2" />
-        </svg>
-    </div>
-
-    <!-- Pinned Gate Section -->
-    <section class="gate-wrapper" id="hero-gates">
-
-        <!-- Content Revealed Behind Gates -->
-        <div class="hero-content fade-up" id="hero-text">
-            
-            <!-- Floating Flowers (Vector format for maximum crispness, matching the gate style) -->
-            <!-- Elegant Floating Vector Florals -->
-            <svg class="floating-flower f-top-left" viewBox="-50 -50 100 100" style="width: 180px;"><use href="#floating-bouquet" transform="rotate(15)"/></svg>
-            <svg class="floating-flower f-top-right" viewBox="-50 -50 100 100" style="width: 150px;"><use href="#flower-spring" transform="scale(1.2) rotate(-20)"/></svg>
-            <svg class="floating-flower f-mid-left" viewBox="-50 -50 100 100" style="width: 120px;"><use href="#leaf-gold" transform="scale(1.5) rotate(45)"/></svg>
-            <svg class="floating-flower f-mid-right" viewBox="-50 -50 100 100" style="width: 200px;"><use href="#floating-bouquet" transform="rotate(-150) scale(0.9)"/></svg>
-            <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: 160px;"><use href="#floating-bouquet" transform="rotate(75) scale(0.8)"/></svg>
-            <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: 140px;"><use href="#flower-spring" transform="scale(1.1) rotate(60)"/></svg>
-
-            <img src="logo.png?v=2" alt="Лого" class="hero-logo">
-            <h1 class="hero-title">ДЕВИЧНИК</h1>
-            <h2 class="hero-names script-font">Мирамир & Камила<br><span
-                    style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
-            <p class="hero-welcome">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
-                атмосферу элегантности и роскоши.</p>
-        </div>
-
-        <!-- SVG Definitions for Ornate Spring Florals -->
-        <svg width="0" height="0" style="position:absolute;">
-            <defs>
-                <g id="leaf-soft">
-                    <path d="M0,0 C15,-20 40,-20 50,-40 C35,-25 10,-25 0,0" fill="var(--accent-leaf)" opacity="0.6" />
-                    <path d="M0,0 C15,-20 40,-20 50,-40" fill="none" stroke="rgba(255,255,255,0.7)"
-                        stroke-width="1.5" />
-                </g>
-                <g id="leaf-gold">
-                    <path d="M0,0 C-15,-20 -40,-20 -50,-40 C-35,-25 -10,-25 0,0" fill="var(--accent-gold)"
-                        opacity="0.4" />
-                    <path d="M0,0 C-15,-20 -40,-20 -50,-40" fill="none" stroke="var(--accent-gold)" stroke-width="1"
-                        opacity="0.8" />
-                </g>
-                <g id="flower-spring">
-                    <circle cx="0" cy="0" r="25" fill="var(--accent-rose)" opacity="0.2" filter="blur(6px)" />
-                    <path d="M0,-5 C10,-25 25,-15 0,10 C-25,-15 -10,-25 0,-5 Z" fill="var(--accent-rose)"
-                        opacity="0.9" />
-                    <path d="M5,0 C25,10 15,25 -10,0 C15,-25 25,-10 5,0 Z" fill="var(--accent-rose)" opacity="0.9" />
-                    <path d="M-5,0 C-25,-10 -15,-25 10,0 C-15,25 -25,10 -5,0 Z" fill="var(--accent-rose)"
-                        opacity="0.9" />
-                    <circle cx="0" cy="0" r="4.5" fill="var(--accent-gold)" />
-                    <circle cx="5" cy="3" r="2" fill="var(--accent-orange)" opacity="0.9" />
-                    <circle cx="-4" cy="-4" r="1.5" fill="var(--accent-orange)" />
-                    <circle cx="0" cy="-4" r="1" fill="#FFF" />
-                </g>
-                <g id="flower-small">
-                    <path d="M0,-2 C5,-10 12,-8 0,5 C-12,-8 -5,-10 0,-2 Z" fill="#fff" opacity="0.85" />
-                    <path d="M2,0 C10,5 8,12 -5,0 C8,-12 10,-5 2,0 Z" fill="#fff" opacity="0.85" />
-                    <circle cx="0" cy="0" r="2.5" fill="var(--accent-gold)" />
-                </g>
-                <g id="floating-bouquet">
-                    <use href="#flower-spring" x="0" y="0" transform="scale(1)" />
-                    <use href="#leaf-gold" x="-20" y="10" transform="rotate(-30)" />
-                    <use href="#leaf-soft" x="25" y="-15" transform="rotate(45)" />
-                    <use href="#flower-small" x="30" y="20" transform="scale(1.2)" />
-                    <use href="#flower-small" x="-15" y="-20" transform="scale(1.1)" />
-                    <path d="M-10,-10 Q-30,-30 -40,-20 M20,20 Q40,40 50,20" stroke="var(--accent-gold)" fill="none" stroke-width="0.8" opacity="0.6"/>
-                </g>
-                <g id="corner-cluster">
-                    <path d="M0,0 Q60,10 120,60 T200,200" fill="none" stroke="var(--accent-gold)" stroke-width="1.5"
-                        stroke-dasharray="4 6" opacity="0.7" />
-                    <path d="M0,20 Q80,30 140,100" fill="none" stroke="var(--accent-leaf)" stroke-width="1"
-                        opacity="0.6" />
-                    <path d="M20,0 Q30,80 100,140" fill="none" stroke="var(--accent-leaf)" stroke-width="1"
-                        opacity="0.6" />
-
-                    <use href="#leaf-soft" x="40" y="15" transform="rotate(25 40 15) scale(1.3)" />
-                    <use href="#leaf-gold" x="70" y="25" transform="rotate(10 70 25) scale(0.9)" />
-                    <use href="#leaf-soft" x="100" y="50" transform="rotate(50 100 50) scale(1.2)" />
-                    <use href="#leaf-gold" x="130" y="80" transform="rotate(35 130 80) scale(1.1)" />
-                    <use href="#leaf-soft" x="60" y="90" transform="rotate(80 60 90) scale(1)" />
-
-                    <use href="#flower-spring" x="50" y="45" transform="scale(1.4)" />
-                    <use href="#flower-spring" x="110" y="95" transform="scale(0.95) rotate(45)" />
-                    <use href="#flower-small" x="80" y="70" />
-                    <use href="#flower-small" x="140" y="120" transform="scale(1.6)" />
-                    <use href="#flower-small" x="30" y="75" transform="scale(1.2)" />
-                    <use href="#flower-small" x="95" y="40" transform="scale(0.9)" />
-                </g>
-            </defs>
-        </svg>
-
-        <!-- The Gates -->
-        <div class="gates-container">
-            <div class="gate gate-left">
-                <!-- Golden delicate abstract pattern -->
-                <svg class="gate-svg-pattern" viewBox="0 0 400 800" preserveAspectRatio="none">
-                    <path d="M-100,0 Q200,400 -100,800 M0,0 Q300,400 0,800 M100,0 Q400,400 100,800"
-                        stroke-width="0.7" />
-                </svg>
-                <div class="gate-center-glow"></div>
-                <!-- Elaborate Floral Corners -->
-                <svg class="floral-corner top-outer" viewBox="0 0 200 200">
-                    <use href="#corner-cluster" />
-                </svg>
-                <svg class="floral-corner bottom-outer" viewBox="0 0 200 200">
-                    <use href="#corner-cluster" />
-                </svg>
-                <div class="gate-frame"></div>
-                <div class="gate-inner-square"></div>
+            <!-- Curtains Layers over the hero text -->
+            <div class="curtains-layer">
+                <div class="curtain curtain-left"></div>
+                <div class="curtain curtain-right"></div>
+                <div class="curtain curtain-valance">
+                    <div class="valance-fringe"></div>
+                </div>
             </div>
 
-            <div class="gate gate-right">
-                <svg class="gate-svg-pattern" viewBox="0 0 400 800" preserveAspectRatio="none">
-                    <path d="M500,0 Q200,400 500,800 M400,0 Q100,400 400,800 M300,0 Q0,400 300,800"
-                        stroke-width="0.7" />
-                </svg>
-                <div class="gate-center-glow"></div>
-                <!-- Elaborate Floral Corners -->
-                <svg class="floral-corner top-outer" viewBox="0 0 200 200">
-                    <use href="#corner-cluster" />
-                </svg>
-                <svg class="floral-corner bottom-outer" viewBox="0 0 200 200">
-                    <use href="#corner-cluster" />
-                </svg>
-                <div class="gate-frame"></div>
-                <div class="gate-inner-square"></div>
+            <div class="scroll-down" style="z-index: 50; color: #FFF; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                Вниз
+                <div class="scroll-line" style="background: rgba(255,255,255,0.5);"></div>
             </div>
-        </div>
+        </section>
 
-        <div class="scroll-down">
-            Вниз
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- Details Section -->
+        <!-- Details Section --> <!-- Details Section -->
     <section class="content-section" id="details">
         <h2 class="section-title fade-up serif">Детали Вечера</h2>
         <div class="divider fade-up"></div>
@@ -901,23 +944,23 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // --- Gate Animation ---
+                // --- Curtain Opening Animation ---
         const heroTl = gsap.timeline({
             scrollTrigger: {
-                trigger: "#hero-gates",
+                trigger: "#hero-curtains",
                 start: "top top",
-                end: "+=75%", // Shorter scroll distance to open gates faster
+                end: "+=120%", // ample scroll distance to open curtains
                 scrub: 1,
                 pin: true
             }
         });
 
         heroTl.to(".scroll-down", { opacity: 0, duration: 0.1 }, 0)
-            .to(".gate-left", { rotateY: -110, ease: "power1.inOut" }, 0)
-            .to(".gate-right", { rotateY: 110, ease: "power1.inOut" }, 0)
-            .to(".top-emblem-section", { scale: 1.5, opacity: 0, duration: 0.5 }, 0) // fade and scale out emblem as gate handles
-            .fromTo("#hero-text", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 }, 0.2)
-            .fromTo(".floating-flower", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1, ease: "back.out(1.5)" }, 0.3);
+            .to(".curtain-left", { scaleX: 0.05, ease: "power2.inOut", duration: 1 }, 0)
+            .to(".curtain-right", { scaleX: 0.05, ease: "power2.inOut", duration: 1 }, 0)
+            .to(".curtain-valance", { yPercent: -100, ease: "power2.in", duration: 0.8 }, 0.2)
+            .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6 }, 0.4)
+            .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.5);
 
         // --- Continuous Wiggle for Flowers ---
         const flowers = gsap.utils.toArray(".floating-flower");
@@ -1035,6 +1078,7 @@
             }
         });
     </script>
+    </div>
 </body>
 
 </html>
