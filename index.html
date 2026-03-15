@@ -290,10 +290,10 @@
             align-items: center;
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateY(-46%); /* Shifted slightly lower to perfectly center visually */
             z-index: 50;
             pointer-events: none;
-            margin-top: -30px; /* Offset to look like a gate lock */
+            margin-top: 0px; /* Offset removed to hit the geometric center */
         }
 
         .emblem-circle {
@@ -391,97 +391,7 @@
         .f-bot-left { bottom: 15%; left: 8%; width: 150px; }
         .f-bot-right { bottom: 8%; right: 5%; width: 110px; }
 
-        .gates-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            perspective: 2000px;
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        .gate {
-            width: 50%;
-            height: 100%;
-            background: var(--gate-color);
-            position: relative;
-            transform-style: preserve-3d;
-            will-change: transform;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            box-shadow: inset 0 0 80px rgba(180, 160, 140, 0.15);
-            /* Soft beige inner shadow */
-        }
-
-        .gate-left {
-            transform-origin: left;
-            justify-content: flex-end;
-            border-right: 2px solid var(--accent-gold);
-        }
-
-        .gate-right {
-            transform-origin: right;
-            justify-content: flex-start;
-            border-left: 2px solid var(--accent-gold);
-        }
-
-        .gate-svg-pattern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            fill: none;
-            stroke: var(--accent-gold);
-            stroke-width: 1;
-            opacity: 0.2;
-            pointer-events: none;
-        }
-
-        /* --- Gate Middle Mirrored Decorative Squares --- */
-        .gate-frame {
-            position: absolute;
-            top: 25%;
-            bottom: 25%;
-            border: 2px solid var(--accent-gold);
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .gate-left .gate-frame {
-            left: 15%;
-            right: 0;
-            border-right: none;
-        }
-
-        .gate-right .gate-frame {
-            left: 0;
-            right: 15%;
-            border-left: none;
-        }
-
-        .gate-inner-square {
-            position: absolute;
-            top: 40%;
-            bottom: 40%;
-            border: 2px solid var(--accent-gold);
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .gate-left .gate-inner-square {
-            right: 0;
-            width: 25%;
-            border-right: none;
-        }
-
-        .gate-right .gate-inner-square {
-            left: 0;
-            width: 25%;
-            border-left: none;
-        }
+        /* --- Redundant gates-container removed to use the var(--bridgerton-red) defined above --- */
 
         /* --- Ornate Floral Corners --- */
         .floral-corner {
@@ -940,8 +850,13 @@
             </div>
         </section>
 
-        <!-- Details Section --> <!-- Details Section -->
-    <section class="content-section" id="details" style="padding-top: 40px;">
+    <!-- Details Section -->
+    <section class="content-section" id="details" style="padding-top: 40px; position: relative; overflow: visible;">
+        <!-- Delicate floating flora drifting behind text content -->
+        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 10%; left: -5%; width: min(30vw, 120px); opacity: 0.6; z-index: 5;"><use href="#leaf-gold" transform="rotate(20)"/></svg>
+        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 55%; right: -5%; width: min(35vw, 150px); opacity: 0.6; z-index: 5;"><use href="#floating-bouquet" transform="rotate(-40) scale(0.8)"/></svg>
+        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 85%; left: 10%; width: min(25vw, 90px); opacity: 0.6; z-index: 5;"><use href="#flower-spring" transform="rotate(60)"/></svg>
+
         <h2 class="section-title fade-up serif">Детали Вечера</h2>
         <div class="divider fade-up"></div>
 
@@ -1007,7 +922,10 @@
     </section>
 
     <!-- RSVP Section -->
-    <section class="content-section" id="rsvp" style="background-color: transparent;">
+    <section class="content-section" id="rsvp" style="background-color: transparent; position: relative; overflow: visible;">
+        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 15%; right: -10%; width: min(32vw, 140px); opacity: 0.5; z-index: 5;"><use href="#floating-bouquet" transform="rotate(70) scale(0.85)"/></svg>
+        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 65%; left: -5%; width: min(20vw, 100px); opacity: 0.5; z-index: 5;"><use href="#leaf-soft" transform="rotate(-15) scale(1.2)"/></svg>
+
         <h2 class="section-title fade-up serif">Присутствие</h2>
         <div class="divider fade-up"></div>
         <p class="info-text fade-up" style="margin-bottom: 30px;">Пожалуйста, подтвердите ваше присутствие, заполнив
@@ -1016,7 +934,7 @@
         <form class="rsvp-form fade-up" id="rsvpForm">
             <div class="form-group">
                 <label class="form-label">Ваше Имя и Фамилия</label>
-                <input type="text" id="guestName" class="form-input" required placeholder="Например: Анна Иванова">
+                <input type="text" id="guestName" class="form-input" required placeholder="Например: Азиза Каримова">
             </div>
 
             <div class="form-group" style="margin: 30px 0;">
@@ -1052,7 +970,7 @@
     </section>
 
     <footer
-        style="text-align: center; padding: 40px; background: var(--text-color); color: var(--bg-color); font-size: 0.8rem; letter-spacing: 0.1em;">
+        style="text-align: center; padding: 40px; background: #E8DCCB; color: var(--text-color); font-size: 0.8rem; letter-spacing: 0.1em; border-top: 1px solid rgba(163, 74, 89, 0.2);">
         &copy; 2026 СВАДЕБНЫЙ ДЕВИЧНИК
     </footer>
 
@@ -1064,19 +982,20 @@
             scrollTrigger: {
                 trigger: "#hero-gates",
                 start: "top top",
-                end: "+=120%", 
+                end: "+=250%", // Extended scrolling distance so it pins longer
                 scrub: 1,
                 pin: true
             }
         });
 
         heroTl.to(".scroll-down", { opacity: 0, duration: 0.1 }, 0)
-            .to(".gate-left", { rotationY: -110, ease: "power2.inOut" }, 0)
-            .to(".gate-right", { rotationY: 110, ease: "power2.inOut" }, 0)
+            .to(".gate-left", { rotationY: -110, ease: "power2.inOut", duration: 1 }, 0)
+            .to(".gate-right", { rotationY: 110, ease: "power2.inOut", duration: 1 }, 0)
             .to(".gate-center-glow", { opacity: 0, duration: 0.3 }, 0)
             .to(".top-emblem-section", { yPercent: -100, opacity: 0, duration: 0.3 }, 0)
             .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.5 }, 0.4)
-            .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.4);
+            .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.4)
+            .to({}, { duration: 1 }); // Adds an empty 1-second interval to hold the fully open/pinned state before unpinning allows normal scroll!
 
         // --- Continuous Wiggle for Flowers ---
         const flowers = gsap.utils.toArray(".floating-flower");
