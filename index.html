@@ -281,7 +281,7 @@
             left: -15vw;
         }
 
-        /* --- Top Emblem --- */
+        /* --- Top Emblem (clickable gate lock) --- */
         .top-emblem-section {
             width: 100%;
             height: 120px;
@@ -290,27 +290,62 @@
             align-items: center;
             position: absolute;
             top: 50%;
-            transform: translateY(-46%); /* Shifted slightly lower to perfectly center visually */
+            transform: translateY(-46%);
             z-index: 50;
-            pointer-events: none;
-            margin-top: 0px; /* Offset removed to hit the geometric center */
+            pointer-events: auto; /* Allow clicks through the gates container */
+            margin-top: 0px;
         }
 
         .emblem-circle {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background-color: var(--bridgerton-red);
             margin: 0 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(163, 74, 89, 0.4);
+            box-shadow: 0 4px 20px rgba(163, 74, 89, 0.5);
+            cursor: pointer;
+            animation: emblemPulse 2.2s ease-in-out infinite;
+            position: relative;
+        }
+
+        /* Ripple ring around the button to hint it's tappable */
+        .emblem-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(163, 74, 89, 0.5);
+            animation: emblemRipple 2.2s ease-out infinite;
+        }
+
+        .emblem-circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(163, 74, 89, 0.3);
+            animation: emblemRipple 2.2s ease-out infinite 0.7s;
+        }
+
+        @keyframes emblemPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 20px rgba(163, 74, 89, 0.4); }
+            50%       { transform: scale(1.12); box-shadow: 0 6px 28px rgba(163, 74, 89, 0.65); }
+        }
+
+        @keyframes emblemRipple {
+            0%   { transform: scale(1);    opacity: 0.8; }
+            100% { transform: scale(2.4);  opacity: 0; }
         }
 
         .emblem-silhouette {
             width: 30px;
             fill: #FFF;
+            pointer-events: none;
         }
 
         /* --- Golden Gates Area (Pinned) --- */
@@ -977,25 +1012,51 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-                // --- Elegant Gate Opening Animation ---
-        const heroTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#hero-gates",
-                start: "top top",
-                end: "+=250%", // Extended scrolling distance so it pins longer
-                scrub: 1,
-                pin: true
-            }
-        });
+        // --- Click-to-Open Gate Animation ---
+        // Gates start covering the hero, user clicks the emblem to open them.
+        const gatesContainer = document.getElementById('hero-gates');
+        const emblem = document.querySelector('.emblem-circle');
 
-        heroTl.to(".scroll-down", { opacity: 0, duration: 0.1 }, 0)
-            .to(".gate-left", { rotationY: -110, ease: "power2.inOut", duration: 1 }, 0)
-            .to(".gate-right", { rotationY: 110, ease: "power2.inOut", duration: 1 }, 0)
-            .to(".gate-center-glow", { opacity: 0, duration: 0.3 }, 0)
-            .to(".top-emblem-section", { yPercent: -100, opacity: 0, duration: 0.3 }, 0)
-            .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.5 }, 0.4)
-            .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.4)
-            .to({}, { duration: 1 }); // Adds an empty 1-second interval to hold the fully open/pinned state before unpinning allows normal scroll!
+        // Initially hide the hero text and flowers until gates open
+        gsap.set('#hero-text', { opacity: 0, scale: 0.95 });
+        gsap.set('.floating-flower', { opacity: 0, scale: 0, rotation: -30 });
+        gsap.set('.scroll-down', { opacity: 1 });
+
+        emblem.addEventListener('click', () => {
+            // Stop the pulsing animation immediately
+            emblem.style.animation = 'none';
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    // After gates fully gone, trigger the scroll-based animations
+                    gsap.utils.toArray('.fade-up').forEach(el => {
+                        el.style.opacity = '';
+                        el.style.transform = '';
+                    });
+                    ScrollTrigger.refresh();
+                }
+            });
+
+            tl
+                // 1. Emblem zooms out and fades
+                .to('.top-emblem-section', { scale: 0, opacity: 0, duration: 0.3, ease: 'power2.in' })
+                // 2. Gates swing open like doors
+                .to('.gate-left',  { rotationY: -110, ease: 'power3.inOut', duration: 0.9 }, 0.1)
+                .to('.gate-right', { rotationY:  110, ease: 'power3.inOut', duration: 0.9 }, 0.1)
+                .to('.gate-center-glow', { opacity: 0, duration: 0.3 }, 0.1)
+                // 3. Hero text + flowers fade in as gates open
+                .fromTo('#hero-text',
+                    { opacity: 0, scale: 0.95 },
+                    { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }, 0.55)
+                .fromTo('.floating-flower',
+                    { opacity: 0, scale: 0, rotation: -30 },
+                    { opacity: 0.85, scale: 1, rotation: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.5)' }, 0.6)
+                // 4. Gates fade out entirely so they don't block scrolling
+                .to('.gates-container', { opacity: 0, duration: 0.4, ease: 'power1.in',
+                    onComplete: () => { gatesContainer.style.display = 'none'; } }, 0.85)
+                // 5. Scroll-down hint reappears
+                .to('.scroll-down', { opacity: 0.8, duration: 0.4 }, 1.1);
+        });
 
         // --- Continuous Wiggle for Flowers ---
         const flowers = gsap.utils.toArray(".floating-flower");
