@@ -156,7 +156,27 @@
             font-size: 1.2rem;
             max-width: 600px;
             line-height: 1.6;
+            margin-top: 15px;
         }
+
+        /* --- Floating Flowers --- */
+        .floating-flower {
+            position: absolute;
+            z-index: 15;
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+            max-width: 150px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            will-change: transform, opacity;
+        }
+
+        .f-top-left { top: 8%; left: 5%; width: 110px; }
+        .f-top-right { top: 12%; right: 4%; width: 140px; }
+        .f-mid-left { top: 45%; left: 2%; width: 90px; }
+        .f-mid-right { top: 52%; right: 6%; width: 130px; }
+        .f-bot-left { bottom: 15%; left: 8%; width: 150px; }
+        .f-bot-right { bottom: 8%; right: 5%; width: 110px; }
 
         .gates-container {
             position: absolute;
@@ -637,6 +657,16 @@
 
         <!-- Content Revealed Behind Gates -->
         <div class="hero-content fade-up" id="hero-text">
+            
+            <!-- Floating Flowers (Vector format for maximum crispness, matching the gate style) -->
+            <!-- Floating Image Flowers -->
+            <img src="flower1.avif" alt="Цветок" class="floating-flower f-top-left" style="width: 140px; transform: rotate(15deg);">
+            <img src="flower2.avif" alt="Цветок" class="floating-flower f-top-right" style="width: 120px; transform: rotate(-10deg);">
+            <img src="flower1.avif" alt="Цветок" class="floating-flower f-mid-left" style="width: 100px; transform: rotate(-25deg);">
+            <img src="flower2.avif" alt="Цветок" class="floating-flower f-mid-right" style="width: 160px; transform: rotate(20deg);">
+            <img src="flower2.avif" alt="Цветок" class="floating-flower f-bot-left" style="width: 130px; transform: rotate(-15deg);">
+            <img src="flower1.avif" alt="Цветок" class="floating-flower f-bot-right" style="width: 150px; transform: rotate(5deg);">
+
             <img src="logo.png" alt="Лого" class="hero-logo">
             <h1 class="hero-title">ДЕВИЧНИК</h1>
             <h2 class="hero-names script-font">Мирамир & Камила<br><span
@@ -787,7 +817,7 @@
             
             <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid var(--accent-gold); margin-top: 25px;">
                 <!-- Updated map to precise location of Behruz Resotoran on Oltintepa Street 28 -->
-                <iframe src="https://yandex.ru/map-widget/v1/?ll=69.324204%2C41.320498&mode=whatshere&whatshere%5Bpoint%5D=69.324204%2C41.320498&whatshere%5Bzoom%5D=17&z=17.5" width="100%" height="350" frameborder="0" style="display: block;"></iframe>
+                <iframe src="https://yandex.ru/map-widget/v1/?ll=69.327822%2C41.310929&mode=whatshere&whatshere%5Bpoint%5D=69.327822%2C41.310929&whatshere%5Bzoom%5D=18&z=18" width="100%" height="350" frameborder="0" style="display: block;"></iframe>
             </div>
             <a href="https://yandex.com/maps/org/76740654566" target="_blank" class="btn btn-gold"
                 style="margin-top: 20px;">Открыть в картах</a>
@@ -878,7 +908,23 @@
             .to(".gate-left", { rotateY: -110, ease: "power1.inOut" }, 0)
             .to(".gate-right", { rotateY: 110, ease: "power1.inOut" }, 0)
             .to(".top-emblem-section", { scale: 1.5, opacity: 0, duration: 0.5 }, 0) // fade and scale out emblem as gate handles
-            .fromTo("#hero-text", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 }, 0.2);
+            .fromTo("#hero-text", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 }, 0.2)
+            .fromTo(".floating-flower", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1, ease: "back.out(1.5)" }, 0.3);
+
+        // --- Continuous Wiggle for Flowers ---
+        const flowers = gsap.utils.toArray(".floating-flower");
+        flowers.forEach((flower, i) => {
+            gsap.to(flower, {
+                x: () => gsap.utils.random(-10, 10),
+                y: () => gsap.utils.random(-10, 10),
+                rotation: () => gsap.utils.random(-4, 4),
+                duration: () => gsap.utils.random(2.5, 4),
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut",
+                delay: i * 0.2
+            });
+        });
 
         // --- Fade Up Elements ---
         gsap.utils.toArray(".fade-up").forEach(elem => {
