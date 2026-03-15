@@ -504,7 +504,7 @@
         .f-top-right { top: 12%; right: 4%; width: 140px; }
         .f-mid-left { top: 38%; left: 2%; width: 90px; }  /* moved up so it clears names */
         .f-mid-right { top: 48%; right: 6%; width: 130px; }
-        .f-bot-left { bottom: 22%; left: 8%; width: 150px; } /* moved up to clear Камила */
+        .f-bot-left { bottom: 32%; left: 8%; width: 150px; } /* moved higher to not cover Девичник / Камила */
         .f-bot-right { bottom: 8%; right: 5%; width: 110px; }
 
         /* --- Redundant gates-container removed to use the var(--bridgerton-red) defined above --- */
@@ -686,7 +686,7 @@
             transform: translate(-50%, -46%);
             width: 42px;
             height: 42px;
-            fill: var(--accent-orange);
+            fill: #6B1829;
             opacity: 0.9;
             z-index: 0;
             animation: heartPulse 2.5s infinite ease-in-out;
@@ -973,12 +973,8 @@
         <div class="divider fade-up"></div>
         <h2 class="section-title fade-up serif" style="margin-bottom: 18px;">Наш праздник начинается здесь</h2>
         <div class="divider fade-up"></div>
-        <p class="info-text fade-up" style="max-width: 600px; font-size: clamp(1rem, 3.5vw, 1.1rem); line-height: 1.85; text-align: center; margin-top: 18px;">
-            Дорогие и самые близкие! Мы начинаем обратный отсчёт до самого важного дня в нашей жизни.
-            Но прежде чем мы скажем друг другу «Да», мы хотим провести этот особенный вечер в кругу тех,
-            кто нам по-настоящему дорог. Это будет вечер тёплых воспоминаний, искренних улыбок
-            и красивых разговоров. Ваше присутствие сделает этот праздник по-настоящему живым.
-            С нетерпением ждём встречи с вами!
+        <p class="info-text fade-up" style="max-width: 560px; font-size: clamp(0.9rem, 3vw, 1rem); line-height: 1.8; text-align: center; margin-top: 18px;">
+            Дорогие и самые близкие! Прежде чем мы скажем друг другу «Да», мы хотим провести этот особенный вечер в кругу тех, кто нам по-настоящему дорог. Это будет вечер тёплых воспоминаний, искренних улыбок и красивых разговоров. С нетерпением ждём встречи с вами!
         </p>
     </section>
 
@@ -1081,7 +1077,7 @@
 
     <!-- RSVP Section -->
     <section class="content-section" id="rsvp" style="background-color: transparent; position: relative; overflow: visible;">
-        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 15%; right: -10%; width: min(32vw, 140px); opacity: 0.5; z-index: 5;"><use href="#floating-bouquet" transform="rotate(70) scale(0.85)"/></svg>
+        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 35%; right: -10%; width: min(32vw, 140px); opacity: 0.5; z-index: 5;"><use href="#floating-bouquet" transform="rotate(70) scale(0.85)"/></svg>
         <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 65%; left: -5%; width: min(20vw, 100px); opacity: 0.5; z-index: 5;"><use href="#leaf-soft" transform="rotate(-15) scale(1.2)"/></svg>
 
         <h2 class="section-title fade-up serif">Save the Date</h2>
@@ -1105,11 +1101,11 @@
                         <span class="rsvp-card-text">С удовольствием приду</span>
                     </button>
                     <button type="button" class="rsvp-card" data-value="Буду с парой">
-                        <span class="rsvp-card-icon">&#9827;</span>
+                        <span class="rsvp-card-icon">&#10046;</span>
                         <span class="rsvp-card-text">Буду с парой</span>
                     </button>
                     <button type="button" class="rsvp-card" data-value="К сожалению, не смогу">
-                        <span class="rsvp-card-icon">&#9786;</span>
+                        <span class="rsvp-card-icon">&#128148;</span>
                         <span class="rsvp-card-text">К сожалению, не смогу</span>
                     </button>
                 </div>
