@@ -212,10 +212,10 @@
             box-shadow: 0 2px 10px rgba(163, 74, 89, 0.12);
         }
         .rsvp-card.selected {
-            background: #0a3d27; /* deep emerald */
-            border-color: #0a3d27;
+            background: #6B1829; /* deep wine / burgundy — warm and elegant */
+            border-color: #6B1829;
             color: #FAF9F6;
-            box-shadow: 0 4px 18px rgba(10, 61, 39, 0.3);
+            box-shadow: 0 4px 18px rgba(107, 24, 41, 0.35);
         }
         .rsvp-card-icon {
             font-size: 1.3rem;
@@ -502,9 +502,9 @@
 
         .f-top-left { top: 8%; left: 5%; width: 110px; }
         .f-top-right { top: 12%; right: 4%; width: 140px; }
-        .f-mid-left { top: 45%; left: 2%; width: 90px; }
-        .f-mid-right { top: 52%; right: 6%; width: 130px; }
-        .f-bot-left { bottom: 15%; left: 8%; width: 150px; }
+        .f-mid-left { top: 38%; left: 2%; width: 90px; }  /* moved up so it clears names */
+        .f-mid-right { top: 48%; right: 6%; width: 130px; }
+        .f-bot-left { bottom: 22%; left: 8%; width: 150px; } /* moved up to clear Камила */
         .f-bot-right { bottom: 8%; right: 5%; width: 110px; }
 
         /* --- Redundant gates-container removed to use the var(--bridgerton-red) defined above --- */
@@ -888,9 +888,12 @@
                 <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
 
                 <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px); position: relative; z-index: 20;">
-                <p class="hero-welcome" style="font-size: clamp(0.7rem, 2.5vw, 0.85rem); letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 2px; position: relative; z-index: 20; font-family: var(--font-sans); font-weight: 300;">Свадебный</p>
-                <h1 class="hero-title" style="margin-bottom: 8px; position: relative; z-index: 20;">Девичник</h1>
-                <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 10px;">Мирамир & Камила<br><span style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
+                <p class="hero-welcome" style="font-size: clamp(0.7rem, 2.5vw, 0.85rem); letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; position: relative; z-index: 20; font-family: var(--font-sans); font-weight: 300;">Свадебный</p>
+                <!-- Девичник wrapped with top+bottom border lines -->
+                <div style="position: relative; z-index: 20; border-top: 1px solid var(--text-color); border-bottom: 1px solid var(--text-color); padding: 6px 0; margin-bottom: 10px;">
+                    <h1 class="hero-title" style="margin: 0;">Девичник</h1>
+                </div>
+                <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 10px; font-size: clamp(1.5rem, 5.5vw, 2.5rem);">Мирамир & Камила<br><span style="font-size: 0.65em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: 0.05em;">и</span><br>Шохруз & Севиль</h2>
                 <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20;">03.04.2026</p>
             </div>
 
@@ -959,7 +962,7 @@
                 </div>
             </div>
 
-            <div class="scroll-down" style="z-index: 50; color: #FFF; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+            <div class="scroll-down" style="z-index: 50; color: var(--text-color); opacity: 0.55; text-shadow: none;">
                 Вниз
                 <div class="scroll-line" style="background: rgba(255,255,255,0.5);"></div>
             </div>
