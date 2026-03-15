@@ -659,15 +659,15 @@
         <div class="hero-content fade-up" id="hero-text">
             
             <!-- Floating Flowers (Vector format for maximum crispness, matching the gate style) -->
-            <!-- Floating Image Flowers -->
-            <img src="flower1.avif" alt="Цветок" class="floating-flower f-top-left" style="width: 140px; transform: rotate(15deg);">
-            <img src="flower2.avif" alt="Цветок" class="floating-flower f-top-right" style="width: 120px; transform: rotate(-10deg);">
-            <img src="flower1.avif" alt="Цветок" class="floating-flower f-mid-left" style="width: 100px; transform: rotate(-25deg);">
-            <img src="flower2.avif" alt="Цветок" class="floating-flower f-mid-right" style="width: 160px; transform: rotate(20deg);">
-            <img src="flower2.avif" alt="Цветок" class="floating-flower f-bot-left" style="width: 130px; transform: rotate(-15deg);">
-            <img src="flower1.avif" alt="Цветок" class="floating-flower f-bot-right" style="width: 150px; transform: rotate(5deg);">
+            <!-- Elegant Floating Vector Florals -->
+            <svg class="floating-flower f-top-left" viewBox="-50 -50 100 100" style="width: 180px;"><use href="#floating-bouquet" transform="rotate(15)"/></svg>
+            <svg class="floating-flower f-top-right" viewBox="-50 -50 100 100" style="width: 150px;"><use href="#flower-spring" transform="scale(1.2) rotate(-20)"/></svg>
+            <svg class="floating-flower f-mid-left" viewBox="-50 -50 100 100" style="width: 120px;"><use href="#leaf-gold" transform="scale(1.5) rotate(45)"/></svg>
+            <svg class="floating-flower f-mid-right" viewBox="-50 -50 100 100" style="width: 200px;"><use href="#floating-bouquet" transform="rotate(-150) scale(0.9)"/></svg>
+            <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: 160px;"><use href="#floating-bouquet" transform="rotate(75) scale(0.8)"/></svg>
+            <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: 140px;"><use href="#flower-spring" transform="scale(1.1) rotate(60)"/></svg>
 
-            <img src="logo.png" alt="Лого" class="hero-logo">
+            <img src="logo.png?v=2" alt="Лого" class="hero-logo">
             <h1 class="hero-title">ДЕВИЧНИК</h1>
             <h2 class="hero-names script-font">Мирамир & Камила<br><span
                     style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
@@ -705,6 +705,14 @@
                     <path d="M0,-2 C5,-10 12,-8 0,5 C-12,-8 -5,-10 0,-2 Z" fill="#fff" opacity="0.85" />
                     <path d="M2,0 C10,5 8,12 -5,0 C8,-12 10,-5 2,0 Z" fill="#fff" opacity="0.85" />
                     <circle cx="0" cy="0" r="2.5" fill="var(--accent-gold)" />
+                </g>
+                <g id="floating-bouquet">
+                    <use href="#flower-spring" x="0" y="0" transform="scale(1)" />
+                    <use href="#leaf-gold" x="-20" y="10" transform="rotate(-30)" />
+                    <use href="#leaf-soft" x="25" y="-15" transform="rotate(45)" />
+                    <use href="#flower-small" x="30" y="20" transform="scale(1.2)" />
+                    <use href="#flower-small" x="-15" y="-20" transform="scale(1.1)" />
+                    <path d="M-10,-10 Q-30,-30 -40,-20 M20,20 Q40,40 50,20" stroke="var(--accent-gold)" fill="none" stroke-width="0.8" opacity="0.6"/>
                 </g>
                 <g id="corner-cluster">
                     <path d="M0,0 Q60,10 120,60 T200,200" fill="none" stroke="var(--accent-gold)" stroke-width="1.5"
