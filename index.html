@@ -141,18 +141,15 @@
         }
 
         
-        /* --- Curtains Layer --- */
-        
+        /* --- Hero Wrapper: fills full viewport so nothing below is visible --- */
         .hero-wrapper {
             position: relative;
-            width: 100%;
-            height: 90vh; /* take up full screen height originally */
-            max-height: 800px;
-            overflow: hidden; 
+            /* Overflow by the page-frame padding so it truly fills 100vh */
+            height: calc(100vh + 80px);
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* add some margin back to offset the frame padding so it fills top area */
             margin-top: -40px;
             margin-left: -40px;
             margin-right: -40px;
@@ -160,14 +157,14 @@
             border-radius: 4px 4px 0 0;
             background-color: var(--bg-color);
         }
-        @media (max-width: 600px) { 
-            .hero-wrapper { 
-                margin-top: -25px; 
-                margin-left: -15px; 
-                margin-right: -15px; 
+        @media (max-width: 600px) {
+            .hero-wrapper {
+                margin-top: -25px;
+                margin-left: -15px;
+                margin-right: -15px;
                 width: calc(100% + 30px);
-                height: 85vh;
-            } 
+                height: calc(100vh + 30px); /* mobile frame is 15px each side */
+            }
         }
         
         .gates-container {
@@ -1013,26 +1010,31 @@
         gsap.registerPlugin(ScrollTrigger);
 
         // --- Click-to-Open Gate Animation ---
-        // Gates start covering the hero, user clicks the emblem to open them.
         const gatesContainer = document.getElementById('hero-gates');
         const emblem = document.querySelector('.emblem-circle');
+
+        // Lock the page scroll — show only the invite card until button is clicked
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
 
         // Initially hide the hero text and flowers until gates open
         gsap.set('#hero-text', { opacity: 0, scale: 0.95 });
         gsap.set('.floating-flower', { opacity: 0, scale: 0, rotation: -30 });
-        gsap.set('.scroll-down', { opacity: 1 });
+        gsap.set('.scroll-down', { opacity: 0 });
 
         emblem.addEventListener('click', () => {
-            // Stop the pulsing animation immediately
+            // Stop the pulsing animation
             emblem.style.animation = 'none';
+
+            // Remove fade-up from hero-text so ScrollTrigger never re-hides it
+            const heroText = document.getElementById('hero-text');
+            heroText.classList.remove('fade-up');
 
             const tl = gsap.timeline({
                 onComplete: () => {
-                    // After gates fully gone, trigger the scroll-based animations
-                    gsap.utils.toArray('.fade-up').forEach(el => {
-                        el.style.opacity = '';
-                        el.style.transform = '';
-                    });
+                    // Unlock page scrolling
+                    document.documentElement.style.overflow = '';
+                    document.body.style.overflow = '';
                     ScrollTrigger.refresh();
                 }
             });
@@ -1051,12 +1053,12 @@
                 .fromTo('.floating-flower',
                     { opacity: 0, scale: 0, rotation: -30 },
                     { opacity: 0.85, scale: 1, rotation: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.5)' }, 0.6)
-                // 4. Gates fade out entirely so they don't block scrolling
+                // 4. Gates dissolve entirely so they don't block scrolling
                 .to('.gates-container', { opacity: 0, duration: 0.4, ease: 'power1.in',
                     onComplete: () => { gatesContainer.style.display = 'none'; } }, 0.85)
-                // 5. Scroll-down hint reappears
+                // 5. Scroll-down hint gently appears
                 .to('.scroll-down', { opacity: 0.8, duration: 0.4 }, 1.1);
-        });
+        }); // end emblem click listener
 
         // --- Continuous Wiggle for Flowers ---
         const flowers = gsap.utils.toArray(".floating-flower");
