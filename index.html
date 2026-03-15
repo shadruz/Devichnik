@@ -140,6 +140,90 @@
             border-radius: 4px;
         }
 
+        /* --- Countdown Timer --- */
+        .countdown-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+        .countdown-num {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 8vw, 3.8rem);
+            font-weight: 400;
+            color: var(--text-color);
+            line-height: 1;
+        }
+        .countdown-label {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--bridgerton-red);
+            opacity: 0.75;
+            margin-top: 4px;
+        }
+        .countdown-sep {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: var(--accent-gold);
+            opacity: 0.6;
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+        @media (max-width: 400px) {
+            .countdown-num { font-size: 2rem; }
+            .countdown-unit { min-width: 46px; }
+            .countdown-sep { font-size: 1.2rem; }
+        }
+
+        /* --- RSVP Card Buttons --- */
+        .rsvp-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+        .rsvp-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: transparent;
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s;
+            text-align: left;
+            letter-spacing: 0.04em;
+        }
+        .rsvp-card:hover {
+            background: rgba(212, 175, 55, 0.08);
+            box-shadow: 0 2px 10px rgba(163, 74, 89, 0.12);
+        }
+        .rsvp-card.selected {
+            background: #0a3d27; /* deep emerald */
+            border-color: #0a3d27;
+            color: #FAF9F6;
+            box-shadow: 0 4px 18px rgba(10, 61, 39, 0.3);
+        }
+        .rsvp-card-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            opacity: 0.85;
+        }
+        .rsvp-card-text { flex: 1; }
+
         
         /* --- Hero Wrapper: fills full viewport so nothing below is visible --- */
         .hero-wrapper {
@@ -804,11 +888,10 @@
                 <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
 
                 <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px); position: relative; z-index: 20;">
-                <h1 class="hero-title" style="margin-bottom: 15px; position: relative; z-index: 20;">ДЕВИЧНИК</h1>
-                <h2 class="hero-names script-font" style="position: relative; z-index: 20;">Мирамир & Камила<br><span
-                        style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
-                <p class="hero-welcome" style="font-size: clamp(0.9rem, 4vw, 1.2rem); position: relative; z-index: 20;">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
-                    атмосферу элегантности и роскоши.</p>
+                <p class="hero-welcome" style="font-size: clamp(0.7rem, 2.5vw, 0.85rem); letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 2px; position: relative; z-index: 20; font-family: var(--font-sans); font-weight: 300;">Свадебный</p>
+                <h1 class="hero-title" style="margin-bottom: 8px; position: relative; z-index: 20;">Девичник</h1>
+                <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 10px;">Мирамир & Камила<br><span style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
+                <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20;">03.04.2026</p>
             </div>
 
             <!-- SVG Definitions for Ornate Spring Florals -->
@@ -881,6 +964,46 @@
                 <div class="scroll-line" style="background: rgba(255,255,255,0.5);"></div>
             </div>
         </section>
+
+    <!-- Intro / Welcome Section -->
+    <section class="content-section" id="intro" style="padding-top: 50px; padding-bottom: 35px;">
+        <div class="divider fade-up"></div>
+        <h2 class="section-title fade-up serif" style="margin-bottom: 18px;">Наш праздник начинается здесь</h2>
+        <div class="divider fade-up"></div>
+        <p class="info-text fade-up" style="max-width: 600px; font-size: clamp(1rem, 3.5vw, 1.1rem); line-height: 1.85; text-align: center; margin-top: 18px;">
+            Дорогие и самые близкие! Мы начинаем обратный отсчёт до самого важного дня в нашей жизни.
+            Но прежде чем мы скажем друг другу «Да», мы хотим провести этот особенный вечер в кругу тех,
+            кто нам по-настоящему дорог. Это будет вечер тёплых воспоминаний, искренних улыбок
+            и красивых разговоров. Ваше присутствие сделает этот праздник по-настоящему живым.
+            С нетерпением ждём встречи с вами!
+        </p>
+    </section>
+
+    <!-- Countdown Timer Section -->
+    <section class="content-section" id="countdown-section" style="padding: 25px 20px 35px;">
+        <p class="fade-up" style="font-family: var(--font-serif); font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--bridgerton-red); opacity: 0.85; margin-bottom: 22px;">До начала вечера</p>
+        <div class="countdown-grid fade-up" id="countdown">
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-days">--</span>
+                <span class="countdown-label">Дней</span>
+            </div>
+            <div class="countdown-sep">&middot;</div>
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-hours">--</span>
+                <span class="countdown-label">Часов</span>
+            </div>
+            <div class="countdown-sep">&middot;</div>
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-mins">--</span>
+                <span class="countdown-label">Минут</span>
+            </div>
+            <div class="countdown-sep">&middot;</div>
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-secs">--</span>
+                <span class="countdown-label">Секунд</span>
+            </div>
+        </div>
+    </section>
 
     <!-- Details Section -->
     <section class="content-section" id="details" style="padding-top: 40px; position: relative; overflow: visible;">
@@ -958,10 +1081,10 @@
         <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 15%; right: -10%; width: min(32vw, 140px); opacity: 0.5; z-index: 5;"><use href="#floating-bouquet" transform="rotate(70) scale(0.85)"/></svg>
         <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 65%; left: -5%; width: min(20vw, 100px); opacity: 0.5; z-index: 5;"><use href="#leaf-soft" transform="rotate(-15) scale(1.2)"/></svg>
 
-        <h2 class="section-title fade-up serif">Присутствие</h2>
+        <h2 class="section-title fade-up serif">Save the Date</h2>
+        <p class="fade-up" style="font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--bridgerton-red); letter-spacing: 0.06em; margin-bottom: 22px; margin-top: -14px;">Confirmation</p>
         <div class="divider fade-up"></div>
-        <p class="info-text fade-up" style="margin-bottom: 30px;">Пожалуйста, подтвердите ваше присутствие, заполнив
-            анкету ниже.</p>
+        <p class="info-text fade-up" style="margin-bottom: 28px; font-size: clamp(1rem, 3.5vw, 1.05rem);">Пожалуйста, подтвердите ваше присутствие.</p>
 
         <form class="rsvp-form fade-up" id="rsvpForm">
             <div class="form-group">
@@ -969,30 +1092,28 @@
                 <input type="text" id="guestName" class="form-input" required placeholder="Например: Азиза Каримова">
             </div>
 
-            <div class="form-group" style="margin: 30px 0;">
-                <label class="form-label">Статус присутствия</label>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="Приду с удовольствием" required>
-                        Приду с удовольствием
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="Буду с парой">
-                        Буду с парой
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="Не смогу">
-                        Не смогу
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="Сообщу позже">
-                        Сообщу позже
-                    </label>
+            <!-- Card-button RSVP selection -->
+            <div class="form-group" style="margin: 25px 0;">
+                <label class="form-label" style="margin-bottom: 15px; display: block;">Ваш ответ</label>
+                <input type="hidden" id="attendanceStatus" required>
+                <div class="rsvp-cards" id="rsvpCards">
+                    <button type="button" class="rsvp-card" data-value="С удовольствием приду">
+                        <span class="rsvp-card-icon">&#9829;</span>
+                        <span class="rsvp-card-text">С удовольствием приду</span>
+                    </button>
+                    <button type="button" class="rsvp-card" data-value="Буду с парой">
+                        <span class="rsvp-card-icon">&#9827;</span>
+                        <span class="rsvp-card-text">Буду с парой</span>
+                    </button>
+                    <button type="button" class="rsvp-card" data-value="К сожалению, не смогу">
+                        <span class="rsvp-card-icon">&#9786;</span>
+                        <span class="rsvp-card-text">К сожалению, не смогу</span>
+                    </button>
                 </div>
             </div>
 
             <div class="form-group" id="partnerGroup" style="display: none;">
-                <label class="form-label">Имя Пары (если есть)</label>
+                <label class="form-label">Имя спутника / спутницы</label>
                 <input type="text" id="partnerName" class="form-input" placeholder="Имя спутника/спутницы">
             </div>
 
@@ -1089,92 +1210,121 @@
             });
         });
 
-        // --- Form Logic ---
+        // --- RSVP Card Selection Logic ---
         const form = document.getElementById('rsvpForm');
-        const radios = document.getElementsByName('attendance');
+        const attendanceInput = document.getElementById('attendanceStatus');
         const partnerGroup = document.getElementById('partnerGroup');
         const partnerInput = document.getElementById('partnerName');
         const submitBtn = document.getElementById('submitBtn');
         const formStatus = document.getElementById('formStatus');
 
-        // Show/hide partner input based on radio selection
-        radios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.value === 'Буду с парой') {
+        document.querySelectorAll('.rsvp-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Deselect all
+                document.querySelectorAll('.rsvp-card').forEach(c => c.classList.remove('selected'));
+                // Select clicked
+                card.classList.add('selected');
+                const val = card.getAttribute('data-value');
+                attendanceInput.value = val;
+                // Show partner field only if "Буду с парой"
+                if (val === 'Буду с парой') {
                     partnerGroup.style.display = 'block';
                 } else {
                     partnerGroup.style.display = 'none';
-                    partnerInput.value = ''; // clear
+                    partnerInput.value = '';
                 }
             });
         });
 
-        // Telegram Sender Function
+        // --- Telegram Sender ---
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const status = attendanceInput.value;
+            if (!status) {
+                formStatus.innerHTML = '<span style="color: var(--bridgerton-red);">Пожалуйста, выберите ваш ответ.</span>';
+                formStatus.style.display = 'block';
+                return;
+            }
             submitBtn.textContent = 'Отправка...';
             submitBtn.disabled = true;
 
             const name = document.getElementById('guestName').value;
-            const status = document.querySelector('input[name="attendance"]:checked').value;
             const partner = partnerInput.value;
 
-            // Prepare Message
-            let textMsg = `⚡️ <b>Новая анкета (Девичник)</b>\n\n`;
+            let textMsg = `&#9875; <b>Новая анкета (Девичник)</b>\n\n`;
             textMsg += `<b>Имя:</b> ${name}\n`;
             textMsg += `<b>Статус:</b> ${status}\n`;
-            if (partner) {
-                textMsg += `<b>Пара:</b> ${partner}\n`;
-            }
+            if (partner) textMsg += `<b>Пара:</b> ${partner}\n`;
 
-            // TELEGRAM CONFIGURATION
-            // REPLACE THESE WITH YOUR BOT CREDENTIALS
             const botToken = '<TOKEN>';
             const chatId = 'CHAT_ID_PLACEHOLDER';
 
             if (botToken === '<TOKEN>') {
-                // If tokens aren't configured yet, simulate success for testing
                 console.log("Telegram Token not set. Simulated message:\n", textMsg);
                 setTimeout(() => {
                     formStatus.innerHTML = '<span style="color: green;">Успешно (Симуляция: Заполните токен бота в коде)</span>';
                     formStatus.style.display = 'block';
                     submitBtn.textContent = 'Отправлено';
                     form.reset();
+                    attendanceInput.value = '';
+                    document.querySelectorAll('.rsvp-card').forEach(c => c.classList.remove('selected'));
                     partnerGroup.style.display = 'none';
                 }, 1000);
+                submitBtn.disabled = false;
                 return;
             }
 
-            // Actual Fetch Call
             const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
             try {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: chatId,
-                        text: textMsg,
-                        parse_mode: 'HTML'
-                    })
+                    body: JSON.stringify({ chat_id: chatId, text: textMsg, parse_mode: 'HTML' })
                 });
-
                 if (response.ok) {
-                    formStatus.innerHTML = '<span style="color: green;">Анкета успешно отправлена! Ждем вас.</span>';
+                    formStatus.innerHTML = '<span style="color: green;">Анкета успешно отправлена! Ждём вас.</span>';
                     form.reset();
+                    attendanceInput.value = '';
+                    document.querySelectorAll('.rsvp-card').forEach(c => c.classList.remove('selected'));
                     partnerGroup.style.display = 'none';
                     submitBtn.textContent = 'Отправить';
-                } else {
-                    throw new Error('Telegram API Error');
-                }
-            } catch (error) {
-                console.error(error);
-                formStatus.innerHTML = '<span style="color: red;">Произошла ошибка при отправке. Пожалуйста, попробуйте позже.</span>';
+                } else { throw new Error('API Error'); }
+            } catch (err) {
+                formStatus.innerHTML = '<span style="color: red;">Ошибка при отправке. Попробуйте позже.</span>';
                 submitBtn.textContent = 'Отправить';
             } finally {
                 formStatus.style.display = 'block';
                 submitBtn.disabled = false;
             }
         });
+
+        // --- Countdown Timer (Tashkent UTC+5: April 3, 2026 18:00) ---
+        function updateCountdown() {
+            // April 3 2026, 18:00 in UTC+5 = 13:00 UTC
+            const target = new Date('2026-04-03T13:00:00Z');
+            const now = new Date();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent  = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-mins').textContent  = '00';
+                document.getElementById('cd-secs').textContent  = '00';
+                return;
+            }
+            const days  = Math.floor(diff / 86400000);
+            const hours = Math.floor((diff % 86400000) / 3600000);
+            const mins  = Math.floor((diff % 3600000)  / 60000);
+            const secs  = Math.floor((diff % 60000)    / 1000);
+
+            const pad = n => String(n).padStart(2, '0');
+            document.getElementById('cd-days').textContent  = pad(days);
+            document.getElementById('cd-hours').textContent = pad(hours);
+            document.getElementById('cd-mins').textContent  = pad(mins);
+            document.getElementById('cd-secs').textContent  = pad(secs);
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
     </div>
 </body>
