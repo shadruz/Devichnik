@@ -170,99 +170,118 @@
             } 
         }
         
-        /* Realistic curved overlapping curtains */
-        .curtains-layer {
+        .gates-container {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 40;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            perspective: 2000px;
+            z-index: 20;
             pointer-events: none;
-            overflow: visible;
         }
 
-        .curtain {
-            position: absolute;
-            /* Warm velvet beige with natural cloth shading */
-            background-color: #E8DCCB;
-            /* Complex radial + linear gradients mimic folding fabric and lighting */
-            background-image: 
-                linear-gradient(90deg, 
-                    rgba(255,255,255,0.0) 0%, 
-                    rgba(255,255,255,0.3) 10%, 
-                    rgba(0,0,0,0.05) 50%, 
-                    rgba(255,255,255,0.1) 80%,
-                    rgba(0,0,0,0.1) 100%),
-                repeating-linear-gradient(90deg, 
-                    transparent 0%, 
-                    rgba(0,0,0,0.05) 15%, 
-                    transparent 30%);
-            box-shadow: 
-                inset 10px 0 30px rgba(0,0,0,0.05),
-                15px 0 40px rgba(0,0,0,0.3);
+        .gate {
+            width: 50%;
+            height: 100%;
+            background: var(--gate-color);
+            position: relative;
+            transform-style: preserve-3d;
             will-change: transform;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 80px rgba(163, 74, 89, 0.05); /* Light red inner gate shadow */
         }
 
-        .curtain-left {
-            top: -5%; left: -5%;
-            width: 60%; height: 110%; /* slightly oversized to cover */
-            transform-origin: top left;
-            /* create curved natural bottom edge and hanging look */
-            border-radius: 0 0 20% 0;
+        .gate-left {
+            transform-origin: left;
+            justify-content: flex-end;
+            border-right: 2px solid var(--bridgerton-red);
         }
 
-        .curtain-right {
-            top: -5%; right: -5%;
-            width: 60%; height: 110%;
-            transform-origin: top right;
-            border-radius: 0 0 0 20%;
-            /* reverse shading */
-            background-image: 
-                linear-gradient(-90deg, 
-                    rgba(255,255,255,0.0) 0%, 
-                    rgba(255,255,255,0.3) 10%, 
-                    rgba(0,0,0,0.05) 50%, 
-                    rgba(255,255,255,0.1) 80%,
-                    rgba(0,0,0,0.1) 100%),
-                repeating-linear-gradient(-90deg, 
-                    transparent 0%, 
-                    rgba(0,0,0,0.05) 15%, 
-                    transparent 30%);
-            box-shadow: 
-                inset -10px 0 30px rgba(0,0,0,0.05),
-                -15px 0 40px rgba(0,0,0,0.3);
+        .gate-right {
+            transform-origin: right;
+            justify-content: flex-start;
+            border-left: 2px solid var(--bridgerton-red);
         }
 
-        .curtain-valance {
-            top: -15px; left: -15px; right: -15px;
-            height: 25vh;
-            min-height: 120px;
-            background-color: #DCCFB7; /* slightly darker top beige */
-            background-image: 
-                linear-gradient(to bottom,
-                    rgba(0,0,0,0.1) 0%,
-                    rgba(255,255,255,0.2) 20%,
-                    rgba(0,0,0,0.15) 100%),
-                repeating-linear-gradient(90deg,
-                    transparent 0%,
-                    rgba(0,0,0,0.08) 10%,
-                    transparent 20%);
-            /* Elegant deeply scalloped bottom */
-            border-radius: 0 0 40% 40%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transform-origin: top;
-            z-index: 41;
-        }
-        
-        .valance-fringe {
+        .gate-svg-pattern {
             position: absolute;
-            bottom: -5px; left: 10%; right: 10%;
-            height: 15px;
-            border-radius: 50%;
-            background-image: repeating-linear-gradient(to right, var(--accent-gold) 0%, var(--accent-gold) 4px, transparent 4px, transparent 8px);
-            opacity: 0.8;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--bridgerton-red);
+            stroke-width: 1;
+            opacity: 0.2;
+            pointer-events: none;
         }
 
-/* --- Top Emblem --- */
+        /* --- Gate Middle Mirrored Decorative Squares --- */
+        .gate-frame {
+            position: absolute;
+            top: 25%;
+            bottom: 25%;
+            border: 2px solid var(--bridgerton-red);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .gate-left .gate-frame {
+            left: 15%;
+            right: 0;
+            border-right: none;
+        }
+
+        .gate-right .gate-frame {
+            left: 0;
+            right: 15%;
+            border-left: none;
+        }
+
+        .gate-inner-square {
+            position: absolute;
+            top: 40%;
+            bottom: 40%;
+            border: 2px solid var(--bridgerton-red);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .gate-left .gate-inner-square {
+            right: 0;
+            width: 25%;
+            border-right: none;
+        }
+
+        .gate-right .gate-inner-square {
+            left: 0;
+            width: 25%;
+            border-left: none;
+        }
+
+        /* Central warm glowing focus to add romance */
+        .gate-center-glow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at center, rgba(163, 74, 89, 0.15) 0%, rgba(248, 244, 238, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .gate-left .gate-center-glow {
+            right: -15vw;
+        }
+
+        .gate-right .gate-center-glow {
+            left: -15vw;
+        }
+
+        /* --- Top Emblem --- */
         .top-emblem-section {
             width: 100%;
             height: 120px;
@@ -274,28 +293,23 @@
             transform: translateY(-50%);
             z-index: 50;
             pointer-events: none;
-        }
-
-        .floral-ornament {
-            width: 80px;
-            fill: var(--accent-gold);
-            opacity: 0.8;
+            margin-top: -30px; /* Offset to look like a gate lock */
         }
 
         .emblem-circle {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background-color: var(--accent-orange);
+            background-color: var(--bridgerton-red);
             margin: 0 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+            box-shadow: 0 4px 15px rgba(163, 74, 89, 0.4);
         }
 
         .emblem-silhouette {
-            width: 40px;
+            width: 30px;
             fill: #FFF;
         }
 
@@ -533,8 +547,8 @@
         .content-section {
             position: relative;
             z-index: 30;
-            background: var(--bg-color);
-            padding: 80px 20px;
+            background: transparent;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -542,20 +556,20 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--text-color);
-            margin-bottom: 40px;
+            margin-bottom: 25px;
         }
 
         .divider {
             width: 60px;
             height: 1px;
             background: var(--accent-gold);
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
         }
 
         .info-block {
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             max-width: 800px;
         }
 
@@ -563,22 +577,22 @@
             font-family: var(--font-serif);
             font-size: 1.8rem;
             color: var(--accent-gold);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .info-text {
             font-size: 1rem;
-            line-height: 1.6;
+            line-height: 1.5;
             color: var(--text-color);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         /* --- Calendar Block --- */
         .calendar-block {
-            margin: 0 auto 60px;
+            margin: 0 auto 40px;
             max-width: 400px;
             width: 100%;
-            padding: 30px 20px;
+            padding: 20px 15px;
             background: transparent;
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 12px;
@@ -847,11 +861,11 @@
                 <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: min(30vw, 150px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(85) scale(0.8)"/></svg>
                 <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
 
-                <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px);">
-                <h1 class="hero-title" style="margin-bottom: 15px;">ДЕВИЧНИК</h1>
-                <h2 class="hero-names script-font">Мирамир & Камила<br><span
+                <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px); position: relative; z-index: 20;">
+                <h1 class="hero-title" style="margin-bottom: 15px; position: relative; z-index: 20;">ДЕВИЧНИК</h1>
+                <h2 class="hero-names script-font" style="position: relative; z-index: 20;">Мирамир & Камила<br><span
                         style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: normal;">и</span><br>Шохруз & Севиль</h2>
-                <p class="hero-welcome" style="font-size: clamp(0.9rem, 4vw, 1.2rem);">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
+                <p class="hero-welcome" style="font-size: clamp(0.9rem, 4vw, 1.2rem); position: relative; z-index: 20;">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в
                     атмосферу элегантности и роскоши.</p>
             </div>
 
@@ -892,12 +906,31 @@
                 </defs>
             </svg>
 
-            <!-- Curtains Layers over the hero text -->
-            <div class="curtains-layer">
-                <div class="curtain curtain-left"></div>
-                <div class="curtain curtain-right"></div>
-                <div class="curtain curtain-valance">
-                    <div class="valance-fringe"></div>
+            <!-- Golden Gates over the hero text -->
+            <div class="gates-container" id="hero-gates">
+                <div class="gate gate-left">
+                    <svg class="gate-svg-pattern" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0,0 L100,100 M0,100 L100,0 M50,0 L50,100 M0,50 L100,50" />
+                    </svg>
+                    <div class="gate-frame"></div>
+                    <div class="gate-inner-square"></div>
+                    <div class="gate-center-glow"></div>
+                </div>
+                <!-- Top Center Emblem acts as the gate lock -->
+                <div class="top-emblem-section">
+                    <div class="emblem-circle">
+                        <svg class="emblem-silhouette" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="gate gate-right">
+                    <svg class="gate-svg-pattern" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0,0 L100,100 M0,100 L100,0 M50,0 L50,100 M0,50 L100,50" />
+                    </svg>
+                    <div class="gate-frame"></div>
+                    <div class="gate-inner-square"></div>
+                    <div class="gate-center-glow"></div>
                 </div>
             </div>
 
@@ -974,10 +1007,10 @@
     </section>
 
     <!-- RSVP Section -->
-    <section class="content-section" id="rsvp" style="background-color: #f4f2e9;">
+    <section class="content-section" id="rsvp" style="background-color: transparent;">
         <h2 class="section-title fade-up serif">Присутствие</h2>
         <div class="divider fade-up"></div>
-        <p class="info-text fade-up" style="margin-bottom: 40px;">Пожалуйста, подтвердите ваше присутствие, заполнив
+        <p class="info-text fade-up" style="margin-bottom: 30px;">Пожалуйста, подтвердите ваше присутствие, заполнив
             анкету ниже.</p>
 
         <form class="rsvp-form fade-up" id="rsvpForm">
@@ -1026,25 +1059,24 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-                // --- Elegant Curtain Opening Animation ---
-        // Complete sweeping move out of the bounding box to keep scroll clean
+                // --- Elegant Gate Opening Animation ---
         const heroTl = gsap.timeline({
             scrollTrigger: {
-                trigger: "#hero-curtains",
+                trigger: "#hero-gates",
                 start: "top top",
-                end: "+=150%", // Longer scroll distance for luxurious sweeping feel
+                end: "+=120%", 
                 scrub: 1,
                 pin: true
             }
         });
 
         heroTl.to(".scroll-down", { opacity: 0, duration: 0.1 }, 0)
-            // Scale and Translate X out so they genuinely disappear
-            .to(".curtain-left", { xPercent: -120, rotation: 10, ease: "power2.inOut", duration: 1 }, 0)
-            .to(".curtain-right", { xPercent: 120, rotation: -10, ease: "power2.inOut", duration: 1 }, 0)
-            .to(".curtain-valance", { yPercent: -150, ease: "power2.in", duration: 0.8 }, 0.2)
-            .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6 }, 0.4)
-            .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.5);
+            .to(".gate-left", { rotationY: -110, ease: "power2.inOut" }, 0)
+            .to(".gate-right", { rotationY: 110, ease: "power2.inOut" }, 0)
+            .to(".gate-center-glow", { opacity: 0, duration: 0.3 }, 0)
+            .to(".top-emblem-section", { yPercent: -100, opacity: 0, duration: 0.3 }, 0)
+            .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.5 }, 0.4)
+            .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.4);
 
         // --- Continuous Wiggle for Flowers ---
         const flowers = gsap.utils.toArray(".floating-flower");
