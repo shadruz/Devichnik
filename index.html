@@ -47,40 +47,53 @@
         .page-frame {
             position: relative;
             background-color: var(--bg-color);
-            border: 2px solid var(--accent-gold);
-            min-height: calc(100vh - 30px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            margin: 0 auto;
-            max-width: 800px; /* Keep mobile-first invitation proportions elegantly centered */
+            /* Increased padding so content stays clear of inset frame */
+            padding: 40px; 
+            margin: 5% auto; /* 5% distance from top/bottom screen edges */
+            width: 90%; /* 10% total horizontal padding from edges */
+            max-width: 800px;
+            min-height: calc(90vh);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1), inset 0 0 100px rgba(212,175,55,0.05);
         }
         @media (max-width: 600px) { 
-            .page-frame { min-height: calc(100vh - 16px); } 
-            
-            /* Add some responsiveness to titles for mobile */
+            .page-frame { 
+                width: 92%; 
+                margin: 4% auto; 
+                padding: 25px 15px;
+                min-height: calc(92vh); 
+            }
             .hero-title { font-size: clamp(2.5rem, 8vw, 4rem) !important; }
+            .hero-names { font-size: clamp(1.2rem, 3.5vw, 2rem) !important; }
+        }
             .hero-names { font-size: clamp(1.2rem, 3.5vw, 2rem) !important; }
         }
         
         .page-frame::before {
             content: '';
             position: absolute;
-            top: 6px; left: 6px; right: 6px; bottom: 6px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
+            /* Inset the gold line to act like molding */
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 4px;
             pointer-events: none;
-            z-index: 90;
+            z-index: 30; /* Ensure text stays interactive */
+        }
+        @media (max-width: 600px) {
+            .page-frame::before { top: 8px; left: 8px; right: 8px; bottom: 8px; border: 1.5px solid rgba(212, 175, 55, 0.5); }
         }
         
         /* Elegant Corners for Frame */
         .f-corner {
             position: absolute;
-            width: 15px; height: 15px;
-            border: 1.5px solid var(--accent-gold);
-            z-index: 91; pointer-events: none;
+            width: 20px; height: 20px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 4px; /* subtle soft corner */
+            z-index: 31; pointer-events: none;
         }
-        .fc-tl { top: 3px; left: 3px; border-right: none; border-bottom: none; }
-        .fc-tr { top: 3px; right: 3px; border-left: none; border-bottom: none; }
-        .fc-bl { bottom: 3px; left: 3px; border-right: none; border-top: none; }
-        .fc-br { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+        .fc-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+        .fc-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+        .fc-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+        .fc-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
 
         h1,
         h2,
@@ -106,81 +119,127 @@
 
         
         /* --- Curtains Layer --- */
+        
         .hero-wrapper {
             position: relative;
             width: 100%;
-            height: calc(100vh - 30px);
-            overflow: hidden; /* contain curtains */
+            height: 90vh; /* take up full screen height originally */
+            max-height: 800px;
+            overflow: hidden; 
             display: flex;
             justify-content: center;
             align-items: center;
+            /* add some margin back to offset the frame padding so it fills top area */
+            margin-top: -40px;
+            margin-left: -40px;
+            margin-right: -40px;
+            width: calc(100% + 80px);
+            border-radius: 4px 4px 0 0;
+            background-color: var(--bg-color);
         }
-        @media (max-width: 600px) { .hero-wrapper { height: calc(100vh - 16px); } }
+        @media (max-width: 600px) { 
+            .hero-wrapper { 
+                margin-top: -25px; 
+                margin-left: -15px; 
+                margin-right: -15px; 
+                width: calc(100% + 30px);
+                height: 85vh;
+            } 
+        }
         
+        /* Realistic curved overlapping curtains */
         .curtains-layer {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             z-index: 40;
             pointer-events: none;
+            overflow: visible;
         }
 
         .curtain {
             position: absolute;
-            background-color: #0d2c1e; /* Deep Emerald */
-            background-image: repeating-linear-gradient(
-                to right,
-                rgba(0,0,0,0.3) 0%,
-                rgba(255,255,255,0.08) 5%,
-                rgba(0,0,0,0.4) 15%,
-                rgba(255,255,255,0.03) 20%
-            );
-            background-size: 100px 100%;
-            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            /* Warm velvet beige with natural cloth shading */
+            background-color: #E8DCCB;
+            /* Complex radial + linear gradients mimic folding fabric and lighting */
+            background-image: 
+                linear-gradient(90deg, 
+                    rgba(255,255,255,0.0) 0%, 
+                    rgba(255,255,255,0.3) 10%, 
+                    rgba(0,0,0,0.05) 50%, 
+                    rgba(255,255,255,0.1) 80%,
+                    rgba(0,0,0,0.1) 100%),
+                repeating-linear-gradient(90deg, 
+                    transparent 0%, 
+                    rgba(0,0,0,0.05) 15%, 
+                    transparent 30%);
+            box-shadow: 
+                inset 10px 0 30px rgba(0,0,0,0.05),
+                15px 0 40px rgba(0,0,0,0.3);
             will-change: transform;
         }
 
         .curtain-left {
-            top: 0; left: 0;
-            width: 50%; height: 100%;
-            transform-origin: left;
-            border-right: 2px solid var(--accent-gold);
+            top: -5%; left: -5%;
+            width: 60%; height: 110%; /* slightly oversized to cover */
+            transform-origin: top left;
+            /* create curved natural bottom edge and hanging look */
+            border-radius: 0 0 20% 0;
         }
 
         .curtain-right {
-            top: 0; right: 0;
-            width: 50%; height: 100%;
-            transform-origin: right;
-            border-left: 2px solid var(--accent-gold);
+            top: -5%; right: -5%;
+            width: 60%; height: 110%;
+            transform-origin: top right;
+            border-radius: 0 0 0 20%;
+            /* reverse shading */
+            background-image: 
+                linear-gradient(-90deg, 
+                    rgba(255,255,255,0.0) 0%, 
+                    rgba(255,255,255,0.3) 10%, 
+                    rgba(0,0,0,0.05) 50%, 
+                    rgba(255,255,255,0.1) 80%,
+                    rgba(0,0,0,0.1) 100%),
+                repeating-linear-gradient(-90deg, 
+                    transparent 0%, 
+                    rgba(0,0,0,0.05) 15%, 
+                    transparent 30%);
+            box-shadow: 
+                inset -10px 0 30px rgba(0,0,0,0.05),
+                -15px 0 40px rgba(0,0,0,0.3);
         }
 
         .curtain-valance {
-            top: -10px; left: -10px; right: -10px;
+            top: -15px; left: -15px; right: -15px;
             height: 25vh;
             min-height: 120px;
-            background-color: #0d2c1e;
-            background-image: repeating-linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.4) 0%,
-                rgba(255,255,255,0.08) 10%,
-                rgba(0,0,0,0.5) 30%,
-                rgba(255,255,255,0.03) 40%
-            );
-            background-size: 100% 50px;
-            border-bottom: 3px solid var(--accent-gold);
-            border-radius: 0 0 50% 50% / 0 0 40px 40px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            background-color: #DCCFB7; /* slightly darker top beige */
+            background-image: 
+                linear-gradient(to bottom,
+                    rgba(0,0,0,0.1) 0%,
+                    rgba(255,255,255,0.2) 20%,
+                    rgba(0,0,0,0.15) 100%),
+                repeating-linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0,0,0,0.08) 10%,
+                    transparent 20%);
+            /* Elegant deeply scalloped bottom */
+            border-radius: 0 0 40% 40%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             transform-origin: top;
             z-index: 41;
         }
         
         .valance-fringe {
             position: absolute;
-            bottom: -8px; left: 0; right: 0;
-            height: 8px;
+            bottom: -5px; left: 10%; right: 10%;
+            height: 15px;
+            border-radius: 50%;
             background-image: repeating-linear-gradient(to right, var(--accent-gold) 0%, var(--accent-gold) 4px, transparent 4px, transparent 8px);
+            opacity: 0.8;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
         }
 
-        /* --- Top Emblem --- */
+/* --- Top Emblem --- */
         .top-emblem-section {
             width: 100%;
             height: 120px;
@@ -826,7 +885,7 @@
         </section>
 
         <!-- Details Section --> <!-- Details Section -->
-    <section class="content-section" id="details">
+    <section class="content-section" id="details" style="padding-top: 40px;">
         <h2 class="section-title fade-up serif">Детали Вечера</h2>
         <div class="divider fade-up"></div>
 
@@ -944,21 +1003,23 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-                // --- Curtain Opening Animation ---
+                // --- Elegant Curtain Opening Animation ---
+        // Complete sweeping move out of the bounding box to keep scroll clean
         const heroTl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#hero-curtains",
                 start: "top top",
-                end: "+=120%", // ample scroll distance to open curtains
+                end: "+=150%", // Longer scroll distance for luxurious sweeping feel
                 scrub: 1,
                 pin: true
             }
         });
 
         heroTl.to(".scroll-down", { opacity: 0, duration: 0.1 }, 0)
-            .to(".curtain-left", { scaleX: 0.05, ease: "power2.inOut", duration: 1 }, 0)
-            .to(".curtain-right", { scaleX: 0.05, ease: "power2.inOut", duration: 1 }, 0)
-            .to(".curtain-valance", { yPercent: -100, ease: "power2.in", duration: 0.8 }, 0.2)
+            // Scale and Translate X out so they genuinely disappear
+            .to(".curtain-left", { xPercent: -120, rotation: 10, ease: "power2.inOut", duration: 1 }, 0)
+            .to(".curtain-right", { xPercent: 120, rotation: -10, ease: "power2.inOut", duration: 1 }, 0)
+            .to(".curtain-valance", { yPercent: -150, ease: "power2.in", duration: 0.8 }, 0.2)
             .fromTo("#hero-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6 }, 0.4)
             .fromTo(".floating-flower", { opacity: 0, scale: 0, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.5);
 
