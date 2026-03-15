@@ -6,251 +6,308 @@
     <title>Девичник</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Montserrat:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         :root {
-            --bg-color: #F9F4E9; /* Cream */
-            --text-color: #043927; /* Deep Emerald */
-            --accent-gold: #D4AF37;
-            --accent-mauve: #B78A9C;
+            --bg-color: #FFFDF9; /* Solid Cream */
+            --text-color: #0A2F1F; /* Deep Emerald */
+            --accent-gold: rgba(212, 175, 55, 0.6); /* Gold only for thin 1px accents */
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Montserrat', sans-serif;
-            --font-title: 'Bodoni Moda', serif;
+            --curtain-color: #E8DCCB; /* Matte beige fabric placeholder */
         }
 
+        /* Essential Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { font-size: 16px; }
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: var(--font-sans);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            line-height: 1.6;
         }
-        
-        /* Mobile View Fix: Increase base font sizes and line heights symmetrically */
-        html { font-size: 16px; }
+
+        /* Mobile Optimization */
         @media(max-width: 768px) {
-            html { font-size: 19.2px; } /* 20% increase */
+            html { font-size: 19.2px; } /* At least 20% larger base */
             body { line-height: 1.8; }
         }
 
         h1, h2, h3, .serif { font-family: var(--font-serif); font-weight: 400; }
 
-        /* The Frame Overlay Fix */
-        .frame-overlay {
+        /* LAYER 1: The Static Frame (Z-Index: 100) */
+        .frame-layer {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 20px; left: 20px; right: 20px; bottom: 20px;
             pointer-events: none;
-            z-index: 1000;
-            background: url('floral_frame.png') center/100% 100% no-repeat;
-            mix-blend-mode: multiply; /* Eliminates white bg naturally */
+            z-index: 100;
+            border: 1px solid var(--accent-gold);
+        }
+        @media(max-width: 768px) {
+            .frame-layer { top: 12px; left: 12px; right: 12px; bottom: 12px; }
         }
 
-        /* Hero / Curtains Section */
-        .hero-section {
-            position: relative;
-            width: 100vw; height: 100vh;
-            overflow: hidden;
+        /* Minimalist Floral SVGs inside the frame */
+        .frame-floral {
+            position: absolute;
+            width: 80px; height: 80px;
+            stroke: var(--accent-gold); fill: none; stroke-width: 0.8;
+            opacity: 0.8;
+        }
+        .ff-tl { top: -2px; left: -2px; }
+        .ff-tr { top: -2px; right: -2px; transform: scaleX(-1); }
+        .ff-bl { bottom: -2px; left: -2px; transform: scaleY(-1); }
+        .ff-br { bottom: -2px; right: -2px; transform: scale(-1, -1); }
+
+        /* LAYER 2: The Curtains (Z-Index: 50) */
+        .curtain-layer {
+            position: fixed; /* Fixed so they stay in view while scrub-opening */
+            top: 0; left: 0; right: 0; height: 100vh;
+            z-index: 50;
+            pointer-events: none;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-color);
         }
 
         .curtain {
-            position: absolute;
-            z-index: 50;
+            width: 50%; height: 100vh;
+            background-color: var(--curtain-color);
+            /* Matte texture simulation placeholder */
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(0,0,0,0.01) 10px, rgba(0,0,0,0.01) 20px);
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
             will-change: transform;
-            mix-blend-mode: multiply;
+        }
+        .curtain-left { transform-origin: left; border-right: 1px solid rgba(0,0,0,0.05); }
+        .curtain-right { transform-origin: right; border-left: 1px solid rgba(0,0,0,0.05); }
+
+        /* Spacer to allow scrolling while curtains are pinned */
+        .scroll-trigger-space {
+            height: 150vh; /* Scrolled distance to fully open curtains */
+            width: 100vw;
         }
 
-        .curtain-left { top: 0; left: 0; width: 55vw; height: 105vh; transform-origin: left; }
-        /* scaleX(-1) mirrors image. xPercent logic in GSAP will adapt correctly */
-        .curtain-right { top: 0; right: 0; width: 55vw; height: 105vh; transform-origin: right; transform: scaleX(-1); }
-        .curtain-top { top: 0; left: 0; width: 100vw; height: auto; min-height: 25vh; z-index: 51; }
-
-        .hero-content {
-            z-index: 30;
-            text-align: center;
+        /* LAYER 3: The Content (Z-Index: 10) */
+        .content-layer {
             position: relative;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
+            background-color: var(--bg-color);
+            /* Pull up over the scroll space so it appears when curtains open */
+            margin-top: -150vh; 
+            padding: 10vh 20px 80px 20px;
+            /* No vertical gaps between sections */
+            gap: 0;
+            text-align: center;
         }
+
+        /* SVG Inner Corners that Breathe */
+        .corner-cluster {
+            position: absolute;
+            width: clamp(100px, 20vw, 150px);
+            height: clamp(100px, 20vw, 150px);
+            z-index: 15;
+            pointer-events: none;
+            stroke: var(--text-color); fill: none; stroke-width: 0.6; opacity: 0.7;
+            will-change: transform;
+        }
+        .cluster-tl { top: 5%; left: 5%; }
+        .cluster-tr { top: 5%; right: 5%; transform: scaleX(-1); }
+        .cluster-bl { bottom: 10%; left: 5%; transform: scaleY(-1); }
+        .cluster-br { bottom: 10%; right: 5%; transform: scale(-1, -1); }
 
         .emblem {
-            width: 70px; height: 70px;
-            background-color: #E67E22;
+            width: 40px; height: 40px;
+            background-color: #D35400; /* Tasteful orange */
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(230,126,34,0.3);
+            margin: 0 auto 1.5rem auto;
         }
-        .emblem svg { width: 35px; fill: #FFF; }
+        .emblem svg { width: 20px; fill: #FFF; }
 
         .hero-title {
-            font-family: var(--font-title);
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 15px;
-            line-height: 1.2;
+            margin-bottom: 2rem;
+            line-height: 1.1;
         }
 
         .hero-names {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-            line-height: 1.3;
+            font-size: clamp(1.4rem, 4vw, 2.5rem);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-separator {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 0.5rem 0;
+            opacity: 0.6;
         }
 
         .hero-date {
-            font-family: var(--font-title);
-            font-size: 1.4rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .welcome-text {
-            max-width: 600px;
-            font-style: italic;
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
-
-        .floating-flower {
-            position: absolute;
-            z-index: 25;
-            mix-blend-mode: multiply;
-            opacity: 0;
-            transform: scale(0);
-        }
-        
-        .f-tl { top: 10%; left: 10%; width: min(35vw, 180px); }
-        .f-tr { top: 15%; right: 8%; width: min(30vw, 150px); transform: rotate(45deg); }
-        .f-bl { bottom: 12%; left: 15%; width: min(30vw, 140px); transform: rotate(-30deg); }
-        .f-br { bottom: 8%; right: 12%; width: min(35vw, 170px); }
-
-        /* Tightly packed content flow below hero */
-        .content-flow {
-            position: relative;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 3rem 1.5rem 6rem 1.5rem;
-            text-align: center;
-            background-color: var(--bg-color);
-        }
-
-        .info-block { width: 100%; max-width: 600px; margin-bottom: 3rem; }
-        
-        .info-title {
-            font-family: var(--font-title);
-            font-size: 1.8rem;
-            color: var(--accent-gold);
-            margin-bottom: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .info-text { font-size: 1.1rem; margin-bottom: 0.5rem; }
-
-        .btn {
-            display: inline-block;
-            margin-top: 1.2rem;
-            padding: 14px 30px;
-            background: var(--text-color);
-            color: #FFF;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            text-decoration: none;
             font-family: var(--font-sans);
-            font-size: 0.9rem;
-            transition: opacity 0.3s, transform 0.3s;
-            border-radius: 2px;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            margin: 2rem 0;
         }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .colors-container {
-            display: flex; justify-content: center; gap: 15px; margin-top: 1.5rem; flex-wrap: wrap;
+        .intro-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 5rem auto;
+            color: var(--text-color);
         }
-        .color-bubble { width: 50px; height: 50px; border-radius: 50%; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
 
-        .rsvp-form { text-align: left; background: #FFF; padding: 40px; border: 1px solid var(--accent-gold); width: 100%; max-width: 500px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-family: var(--font-serif); margin-bottom: 8px; font-size: 1.1rem; }
-        .form-input { width: 100%; padding: 12px; border: 1px solid #ccc; font-family: var(--font-sans); outline: none; transition: border 0.3s; background: transparent; }
-        .form-input:focus { border-bottom: 2px solid var(--text-color); }
-        .radio-label { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; cursor: pointer; font-weight: 300; }
-        .radio-label input { accent-color: var(--text-color); transform: scale(1.2); }
+        .details-section {
+            display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 600px; margin: 0 auto 5rem auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; margin-bottom: 1rem;
+        }
+
+        .info-heading {
+            font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 1rem;
+        }
+
+        .btn-minimal {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            width: auto;
+            min-width: 250px;
+        }
+        .btn-minimal:hover {
+            background: var(--text-color); color: var(--bg-color);
+        }
+
+        .dress-code-colors {
+            display: flex; justify-content: center; gap: 15px; margin: 1.5rem 0; flex-wrap: wrap;
+        }
+        .color-block {
+            width: 40px; height: 40px; border-radius: 2px;
+        }
+
+        /* Minimalist Forms */
+        .rsvp-form {
+            width: 100%; max-width: 450px; text-align: left; margin: 0 auto;
+        }
         
-        footer { padding: 30px; text-align: center; background-color: var(--text-color); color: var(--bg-color); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+        .form-group { margin-bottom: 1.8rem; }
         
+        .form-label {
+            display: block; font-family: var(--font-sans); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; opacity: 0.8;
+        }
+        
+        .form-input {
+            width: 100%; padding: 12px 15px; background: transparent; border: 1px solid rgba(10, 47, 31, 0.2); font-family: var(--font-serif); font-size: 1.1rem; color: var(--text-color); outline: none; transition: border-color 0.3s;
+        }
+        .form-input:focus { border-color: var(--text-color); }
+        
+        .radio-option {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 15px; cursor: pointer;
+        }
+        /* Custom Radio */
+        .radio-option input[type="radio"] { appearance: none; width: 16px; height: 16px; border: 1px solid var(--text-color); border-radius: 50%; outline: none; position: relative; cursor: pointer; }
+        .radio-option input[type="radio"]:checked::before { content: ''; position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px; background: var(--text-color); border-radius: 50%; }
+        .radio-label-text { font-family: var(--font-serif); font-size: 1.1rem; }
+
+        .footer { padding-top: 5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; }
+
+        /* SVG Corner Art Definition (Invisible) */
+        .defs-svg { width: 0; height: 0; position: absolute; }
     </style>
 </head>
 <body>
 
-    <!-- Fixed Floral Frame Overlay -->
-    <div class="frame-overlay"></div>
+    <!-- LAYER 1: The Static Frame -->
+    <div class="frame-layer">
+        <svg class="frame-floral ff-tl" viewBox="0 0 100 100"><use href="#corner-art"/></svg>
+        <svg class="frame-floral ff-tr" viewBox="0 0 100 100"><use href="#corner-art"/></svg>
+        <svg class="frame-floral ff-bl" viewBox="0 0 100 100"><use href="#corner-art"/></svg>
+        <svg class="frame-floral ff-br" viewBox="0 0 100 100"><use href="#corner-art"/></svg>
+    </div>
 
-    <section class="hero-section" id="hero">
+    <!-- LAYER 2: Moving Curtains -->
+    <div class="curtain-layer">
+        <div class="curtain curtain-left" id="curtainL"></div>
+        <div class="curtain curtain-right" id="curtainR"></div>
+    </div>
+
+    <!-- Scroll Trigger Body acts as track for curtains -->
+    <div class="scroll-trigger-space" id="trigger-space"></div>
+
+    <!-- LAYER 3: The Content -->
+    <section class="content-layer">
         
-        <img src="curtain_left.png" class="curtain curtain-left" alt="curtain">
-        <img src="curtain_left.png" class="curtain curtain-right" alt="curtain">
-        <img src="curtain_top.png" class="curtain curtain-top" alt="curtain">
+        <!-- Breathing Corner Clusters -->
+        <svg class="corner-cluster cluster-tl"><use href="#flower-cluster"/></svg>
+        <svg class="corner-cluster cluster-tr"><use href="#flower-cluster"/></svg>
+        <svg class="corner-cluster cluster-bl"><use href="#flower-cluster"/></svg>
+        <svg class="corner-cluster cluster-br"><use href="#flower-cluster"/></svg>
 
-        <div class="hero-content">
-            
-            <img src="flower1.png" class="floating-flower f-tl" alt="Flower">
-            <img src="flower1.png" class="floating-flower f-tr" alt="Flower">
-            <img src="flower1.png" class="floating-flower f-bl" alt="Flower">
-            <img src="flower1.png" class="floating-flower f-br" alt="Flower">
+        <div class="emblem">
+            <svg viewBox="0 0 50 60"><path d="M25 5 C15 5 10 15 15 25 C10 30 15 45 25 55 C35 45 40 30 35 25 C40 15 35 5 25 5 Z"/></svg>
+        </div>
 
-            <div class="emblem">
-                <svg viewBox="0 0 50 60"><path d="M25 5 C15 5 10 15 15 25 C10 30 15 45 25 55 C35 45 40 30 35 25 C40 15 35 5 25 5 Z"/></svg>
+        <h1 class="hero-title">ДЕВИЧНИК</h1>
+        
+        <h2 class="hero-names serif">Мирамир & Камила</h2>
+        <div class="hero-separator">и</div>
+        <h2 class="hero-names serif">Шохруз & Севиль</h2>
+
+        <div class="hero-date">03.04.2026</div>
+
+        <p class="intro-text">
+            Мы приглашаем вас разделить с нами радость этого прекрасного события. Ждем вас на нашем вечере.
+        </p>
+
+        <!-- Details -->
+        <div class="details-section">
+            <div class="section-label">Локация</div>
+            <div class="info-heading">Ресторан Бехруз</div>
+            <p style="font-size: 1.1rem;">Начало вечера в 18:00</p>
+            <a href="https://yandex.com/maps/org/76740654566" target="_blank" class="btn-minimal">Открыть в Яндекс Картах</a>
+        </div>
+
+        <div class="details-section">
+            <div class="section-label">Дресс-код</div>
+            <div class="info-heading">Цветовая палитра</div>
+            <div class="dress-code-colors">
+                <div class="color-block" style="background-color: #0A2F1F;" title="Emerald"></div>
+                <div class="color-block" style="background-color: #B2AC88;" title="Sage"></div>
+                <div class="color-block" style="background-color: #F5F5DC;" title="Beige"></div>
+                <div class="color-block" style="background-color: #DCAE96;" title="Dusty Rose"></div>
+                <div class="color-block" style="background-color: #706555;" title="Grey-Brown"></div>
             </div>
-            
-            <h1 class="hero-title">ДЕВИЧНИК:</h1>
-            <h2 class="hero-names">Мирамир & Камила<br><span style="font-size: 0.4em; font-family: var(--font-sans); color: var(--text-color);">и</span><br>Шохруз & Севиль</h2>
-            <div class="hero-date">03.04.2026</div>
-            <p class="welcome-text">Приглашаем вас разделить с нами радость этого прекрасного события. Окунитесь в атмосферу элегантности и роскоши.</p>
-        </div>
-        
-    </section>
-
-    <section class="content-flow">
-        
-        <div class="info-block">
-            <h3 class="info-title">Детали Вечера</h3>
-            <p class="info-text" style="font-size: 1.4rem; font-family: var(--font-serif);">Локация: Ресторан Бехруз</p>
-            <p class="info-text" style="margin-top: 10px;">Начало вечера в 18:00</p>
-            <a href="https://yandex.com/maps/org/76740654566" target="_blank" class="btn">Открыть в Яндекс Картах</a>
+            <p style="font-family: var(--font-serif); font-size: 1.1rem; max-width: 500px; margin-top: 1rem;">
+                Мы будем рады видеть вас в любом наряде, однако особенно приветствуем оттенки из предложенной палитры.
+            </p>
         </div>
 
-        <div class="info-block">
-            <h3 class="info-title">Дресс-код</h3>
-            <p class="info-text serif" style="font-size: 1.3rem;">Chic & Gold</p>
-            <div class="colors-container">
-                <div class="color-bubble" style="background-color: #043927;" title="Emerald"></div>
-                <div class="color-bubble" style="background-color: #B2AC88;" title="Sage"></div>
-                <div class="color-bubble" style="background-color: #F5F5DC;" title="Beige"></div>
-                <div class="color-bubble" style="background-color: #DCAE96;" title="Dusty Rose"></div>
-                <div class="color-bubble" style="background-color: #706555;" title="Grey-Brown"></div>
-            </div>
-            <p style="margin-top: 15px; font-weight: 300;">Мы знаем — вы прекрасны в любом наряде! Но особенно приятно нам будет, если вы поддержите цветовую гамму торжества.</p>
-        </div>
-
-        <div class="info-block" style="margin-bottom: 0;">
-            <h3 class="info-title">Присутствие</h3>
-            <p style="margin-bottom: 25px;">Пожалуйста, подтвердите ваше присутствие, заполнив анкету ниже.</p>
+        <!-- RSVP Form -->
+        <div class="details-section" style="margin-bottom: 0; max-width: 100%;">
+            <div class="section-label">Присутствие</div>
             
             <form class="rsvp-form" id="rsvpForm">
                 <div class="form-group">
@@ -258,68 +315,106 @@
                     <input type="text" id="guestName" class="form-input" required placeholder="Например: Анна Иванова">
                 </div>
 
-                <div class="form-group" style="margin: 25px 0;">
-                    <label class="form-label">Статус присутствия</label>
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="attendance" value="Приду с удовольствием" required> Приду с удовольствием</label>
-                        <label class="radio-label"><input type="radio" name="attendance" value="Буду с парой"> Буду с парой</label>
-                        <label class="radio-label"><input type="radio" name="attendance" value="Не смогу"> Не смогу</label>
-                        <label class="radio-label"><input type="radio" name="attendance" value="Сообщу позже"> Сообщу позже</label>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label" style="margin-bottom: 1rem;">Статус присутствия</label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Приду с удовольствием" required>
+                        <span class="radio-label-text">Приду с удовольствием</span>
+                    </label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Буду с парой">
+                        <span class="radio-label-text">Буду с парой</span>
+                    </label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Не смогу">
+                        <span class="radio-label-text">Не смогу</span>
+                    </label>
+                    
+                    <label class="radio-option">
+                        <input type="radio" name="attendance" value="Сообщу позже">
+                        <span class="radio-label-text">Сообщу позже</span>
+                    </label>
                 </div>
 
-                <div class="form-group" id="partnerGroup" style="display: none;">
+                <div class="form-group" id="partnerGroup" style="display: none; height: 0; overflow: hidden; opacity: 0; transition: all 0.4s ease;">
                     <label class="form-label">Имя Пары (если есть)</label>
                     <input type="text" id="partnerName" class="form-input" placeholder="Имя спутника/спутницы">
                 </div>
 
-                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;" id="submitBtn">Отправить</button>
-                <p id="formStatus" style="text-align: center; margin-top: 15px; font-size: 0.9rem; display: none;"></p>
+                <button type="submit" class="btn-minimal" id="submitBtn" style="width: 100%;">Отправить Ответ</button>
+                <div id="formStatus" style="text-align: center; margin-top: 1rem; font-family: var(--font-sans); font-size: 0.85rem; display: none;"></div>
             </form>
         </div>
 
+        <div class="footer">2026 &copy; Свадебный Девичник</div>
+
     </section>
 
-    <footer>&copy; 2026 СВАДЕБНЫЙ ДЕВИЧНИК</footer>
+    <!-- Definitions for precise SVG fine lines -->
+    <svg class="defs-svg">
+        <defs>
+            <g id="corner-art">
+                <path d="M0,0 Q30,10 60,60 M0,20 Q20,30 40,70" />
+                <path d="M10,0 Q20,30 50,40 M0,40 Q20,40 30,60" />
+                <circle cx="20" cy="20" r="3" />
+                <circle cx="45" cy="50" r="1.5" />
+            </g>
+            <g id="flower-cluster">
+                <!-- Extremely minimal continuous line drawing style floral -->
+                <path d="M0,0 C20,30 80,10 100,50 C80,20 20,40 0,0" />
+                <path d="M10,10 C40,50 30,80 50,100 C30,70 50,30 10,10" />
+                <path d="M40,40 C60,60 70,80 90,90 C80,70 60,60 40,40" />
+                <circle cx="40" cy="40" r="4" fill="var(--text-color)"/>
+                <circle cx="25" cy="55" r="2" fill="var(--text-color)"/>
+                <circle cx="65" cy="30" r="2.5" fill="var(--text-color)"/>
+            </g>
+        </defs>
+    </svg>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // --- Heavy, Luxurious Pulling-Open Animation ---
-        const heroTl = gsap.timeline({
+        // 1. Solid Curtain Scroll Animation
+        gsap.to("#curtainL", {
+            xPercent: -100,
+            ease: "none",
             scrollTrigger: {
-                trigger: "#hero",
+                trigger: "#trigger-space",
                 start: "top top",
-                end: "+=150%", // Extended scroll distance to make it feel sluggish/"heavy"
-                scrub: 1.5, // 1.5s smoothing creates that weighted feeling
-                pin: true
+                end: "bottom top",
+                scrub: 0.5 // Minimal interpolation for crispness
             }
         });
 
-        // The image on the right is already flipped horizontally (scaleX(-1)).
-        // Using xPercent: -100 pushes it towards its *local* left... which is the visual right!
-        heroTl.to(".curtain-left", { xPercent: -100, ease: "power2.inOut", duration: 1 }, 0)
-              .to(".curtain-right", { xPercent: -100, ease: "power2.inOut", duration: 1 }, 0)
-              .to(".curtain-top", { yPercent: -100, ease: "power2.inOut", duration: 1 }, 0)
-              
-              // Dynamic Floral Reveal (Bounce in)
-              .to(".floating-flower", { opacity: 0.9, scale: 1, duration: 0.5, stagger: 0.15, ease: "back.out(1.4)" }, 0.4);
+        gsap.to("#curtainR", {
+            xPercent: 100,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#trigger-space",
+                start: "top top",
+                end: "bottom top",
+                scrub: 0.5
+            }
+        });
 
-        // Continuous Subtle GSAP Wiggle for flowers
-        gsap.utils.toArray(".floating-flower").forEach((flower, i) => {
-            gsap.to(flower, {
-                x: () => gsap.utils.random(-5, 5),
-                y: () => gsap.utils.random(-5, 5),
-                rotation: () => "+=" + gsap.utils.random(-3, 3), // Subtle rotation drift
-                duration: () => gsap.utils.random(2.5, 4.5),
+        // Optional: After curtains finish opening, push them out of DOM rendering flow or disable pointer actions completely
+        // Though pointer-events: none is applied in CSS.
+        
+        // 2. Subtle "Breathing" GSAP Animation for Corner Clusters
+        gsap.utils.toArray(".corner-cluster").forEach(cluster => {
+            gsap.to(cluster, {
+                scale: 1.05,
+                duration: gsap.utils.random(3, 5),
                 yoyo: true,
                 repeat: -1,
-                ease: "sine.inOut",
-                delay: i * 0.3
+                ease: "sine.inOut"
             });
         });
 
-        // --- RSVP Form Logic ---
+        // 3. RSVP Logic with smooth display
         const form = document.getElementById('rsvpForm');
         const radios = document.getElementsByName('attendance');
         const partnerGroup = document.getElementById('partnerGroup');
@@ -331,8 +426,14 @@
             radio.addEventListener('change', (e) => {
                 if (e.target.value === 'Буду с парой') {
                     partnerGroup.style.display = 'block';
+                    setTimeout(() => {
+                        partnerGroup.style.opacity = '1';
+                        partnerGroup.style.height = 'auto';
+                    }, 10);
                 } else {
-                    partnerGroup.style.display = 'none';
+                    partnerGroup.style.opacity = '0';
+                    partnerGroup.style.height = '0';
+                    setTimeout(() => { partnerGroup.style.display = 'none'; }, 400);
                     partnerInput.value = '';
                 }
             });
@@ -340,14 +441,15 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            submitBtn.textContent = 'Отправка...';
-            submitBtn.disabled = true;
+            submitBtn.textContent = 'ОТПРАВКА...';
+            submitBtn.style.pointerEvents = 'none';
+            submitBtn.style.opacity = '0.7';
 
             const name = document.getElementById('guestName').value;
             const status = document.querySelector('input[name="attendance"]:checked').value;
             const partner = partnerInput.value;
 
-            let textMsg = `⚡️ <b>Новая анкета (Девичник)</b>\n\n<b>Имя:</b> ${name}\n<b>Статус:</b> ${status}\n`;
+            let textMsg = `⚡️ <b>Девичник RSVP</b>\n\n<b>Гость:</b> ${name}\n<b>Решение:</b> ${status}\n`;
             if (partner) textMsg += `<b>Пара:</b> ${partner}\n`;
 
             const botToken = '<TOKEN>';
@@ -355,11 +457,12 @@
 
             if (botToken === '<TOKEN>') {
                 setTimeout(() => {
-                    formStatus.innerHTML = '<span style="color: green;">Успешно (Симуляция)</span>';
+                    formStatus.innerHTML = '<span style="color: var(--text-color);">Анкета успешно обработана (Simulated).</span>';
                     formStatus.style.display = 'block';
-                    submitBtn.textContent = 'Отправлено';
-                    form.reset(); partnerGroup.style.display = 'none';
-                }, 1000);
+                    submitBtn.textContent = 'ОТПРАВЛЕНО';
+                    form.reset(); 
+                    partnerGroup.style.opacity = '0'; partnerGroup.style.height = '0'; setTimeout(() => partnerGroup.style.display = 'none', 400);
+                }, 800);
                 return;
             }
 
@@ -371,16 +474,18 @@
                 });
 
                 if (response.ok) {
-                    formStatus.innerHTML = '<span style="color: green;">Успешно отправлена!</span>';
-                    form.reset(); partnerGroup.style.display = 'none';
-                    submitBtn.textContent = 'Отправить';
+                    formStatus.innerHTML = '<span style="color: var(--text-color);">Анкета успешно отправлена. Спасибо!</span>';
+                    submitBtn.textContent = 'ОТПРАВЛЕНО';
+                    form.reset();
+                    partnerGroup.style.opacity = '0'; partnerGroup.style.height = '0'; setTimeout(() => partnerGroup.style.display = 'none', 400);
                 } else throw new Error();
             } catch (error) {
-                formStatus.innerHTML = '<span style="color: red;">Ошибка.</span>';
-                submitBtn.textContent = 'Отправить';
+                formStatus.innerHTML = '<span style="color: #D35400;">Произошла ошибка связи. Попробуйте еще раз.</span>';
+                submitBtn.textContent = 'ОТПРАВИТЬ ОТВЕТ';
+                submitBtn.style.pointerEvents = 'auto';
+                submitBtn.style.opacity = '1';
             } finally {
                 formStatus.style.display = 'block';
-                submitBtn.disabled = false;
             }
         });
     </script>
