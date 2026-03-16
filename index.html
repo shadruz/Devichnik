@@ -73,63 +73,19 @@
             min-height: 100vh;
             overflow: hidden;
         }
+        /* Floral border ornaments removed */
+        .page-frame::after,
+        .page-frame::before {
+            display: none;
+        }
+        
+        /* Hide old neoclassical corners */
+        .f-corner { display: none !important; }
+
         @media (max-width: 600px) {
             .page-frame {
                 padding: 45px 20px;
             }
-        }
-        
-        /* Floral border ornaments - Frame effect */
-        .page-frame::after,
-        .page-frame::before {
-            content: '';
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0.6;
-            filter: sepia(0.2) saturate(0.8);
-        }
-
-        .page-frame::before {
-            top: 0;
-            left: 0;
-            background-image: url('floral_frame.png');
-            transform: rotate(0deg);
-        }
-
-        .page-frame::after {
-            bottom: 0;
-            right: 0;
-            background-image: url('floral_frame.png');
-            transform: rotate(180deg);
-        }
-
-        /* Additional corner elements for fuller frame */
-        .f-corner {
-            display: block !important;
-            position: fixed;
-            width: 150px;
-            height: 150px;
-            background-image: url('flower1.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0.45;
-        }
-
-        .fc-tr { top: 0; right: 0; transform: scaleX(-1); }
-        .fc-bl { bottom: 0; left: 0; transform: scaleY(-1); }
-        .fc-br { display: none !important; } /* Replaced by ::after */
-        .fc-tl { display: none !important; } /* Replaced by ::before */
-
-        @media (max-width: 600px) {
-            .page-frame::after, .page-frame::before { width: 150px; height: 150px; }
-            .f-corner { width: 100px; height: 100px; }
         }
 
         h1,
