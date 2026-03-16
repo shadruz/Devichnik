@@ -19,7 +19,12 @@
     <meta name="twitter:image" content="https://shadruz.github.io/Devichnik/og-preview.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Felidae Regular & Anastasia Script via local or CDN fallback -->
+    <style>
+        /* Felidae Regular — loaded via Google Fonts alternative or self-hosted */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
@@ -34,9 +39,10 @@
             /* Soft pastel rose for spring florals */
             --accent-leaf: #B5C4B1;
             /* Soft sage green for spring leaves */
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Montserrat', sans-serif;
-            --font-script: 'Great Vibes', 'Anastasia Script', cursive;
+            /* Two-font system: script for names, Cormorant Garamond (Felidae-like) for everything else */
+            --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --font-sans: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --font-script: 'Great Vibes', cursive;
             --bridgerton-red: #A34A59; /* Classic faded society paper red */
         }
 
@@ -53,13 +59,25 @@
             font-family: var(--font-sans);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* Paper / cardboard texture — subtle grain on the outer wrapper */
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeBlend mode='multiply' in='SourceGraphic'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 300px 300px;
         }
         @media (max-width: 600px) { body { padding: 8px; margin: 0; } }
         
         /* Classic Bridgerton Society Paper Frame */
         .page-frame {
             position: relative;
+            /* Paper/cardboard texture on the invitation itself */
             background-color: var(--bg-color);
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1' intercept='0'/%3E%3CfeFuncG type='linear' slope='0.95' intercept='0.02'/%3E%3CfeFuncB type='linear' slope='0.85' intercept='0'/%3E%3C/feComponentTransfer%3E%3CfeBlend mode='multiply' in='SourceGraphic'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E"),
+                /* Fine crosshatch scrim for paper feel */
+                repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(160,140,110,0.015) 3px, rgba(160,140,110,0.015) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(160,140,110,0.015) 3px, rgba(160,140,110,0.015) 4px);
+            background-size: 200px 200px, 4px 4px, 4px 4px;
             padding: 55px 45px; 
             margin: 5% auto;
             width: 90%; 
@@ -246,19 +264,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: -40px;
-            margin-left: -40px;
-            margin-right: -40px;
-            width: calc(100% + 80px);
+            margin-top: -55px; /* pull up to remove empty space above logo */
+            margin-left: -45px;
+            margin-right: -45px;
+            width: calc(100% + 90px);
             border-radius: 4px 4px 0 0;
             background-color: var(--bg-color);
         }
         @media (max-width: 600px) {
             .hero-wrapper {
-                margin-top: -25px;
-                margin-left: -15px;
-                margin-right: -15px;
-                width: calc(100% + 30px);
+                margin-top: -45px; /* mobile: pull up more to eliminate top gap */
+                margin-left: -20px;
+                margin-right: -20px;
+                width: calc(100% + 40px);
                 height: calc(100vh + 30px); /* mobile frame is 15px each side */
             }
         }
@@ -500,23 +518,24 @@
             margin-top: 15px;
         }
 
-        /* --- Floating Flowers --- */
+        /* --- Floating Flowers (hidden) --- */
         .floating-flower {
             position: absolute;
             z-index: 15;
-            opacity: 0;
-            transform: scale(0);
+            opacity: 0 !important;
+            transform: scale(0) !important;
             pointer-events: none;
             max-width: 150px;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
             will-change: transform, opacity;
+            display: none; /* completely hidden until re-enabled */
         }
 
         .f-top-left { top: 8%; left: 5%; width: 110px; }
         .f-top-right { top: 12%; right: 4%; width: 140px; }
-        .f-mid-left { top: 38%; left: 2%; width: 90px; }  /* moved up so it clears names */
-        .f-mid-right { top: 28%; right: 6%; width: 130px; } /* moved up above Девичник */
-        .f-bot-left { bottom: 18%; left: 8%; width: 150px; } /* near Шохруз */
+        .f-mid-left { top: 38%; left: 2%; width: 90px; }
+        .f-mid-right { top: 28%; right: 6%; width: 130px; }
+        .f-bot-left { bottom: 18%; left: 8%; width: 150px; }
         .f-bot-right { bottom: 8%; right: 5%; width: 110px; }
 
         /* --- Redundant gates-container removed to use the var(--bridgerton-red) defined above --- */
@@ -749,9 +768,13 @@
         .colors-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             margin: 30px 0;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* force single row */
+        }
+        @media (max-width: 400px) {
+            .colors-container { gap: 8px; }
+            .color-bubble { width: 40px !important; height: 40px !important; }
         }
 
         .color-bubble {
@@ -900,14 +923,16 @@
                 <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
 
                 <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px); position: relative; z-index: 20;">
-                <p class="hero-welcome" style="font-size: clamp(0.7rem, 2.5vw, 0.85rem); letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; position: relative; z-index: 20; font-family: var(--font-sans); font-weight: 300;">Свадебный</p>
+                <!-- "Приглашаем вас на" above Девичник -->
+                <p class="hero-welcome" style="font-size: clamp(0.62rem, 2.2vw, 0.8rem); letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.65; margin-bottom: 6px; position: relative; z-index: 20; font-family: var(--font-sans); font-weight: 400;">Приглашаем вас на</p>
                 <!-- Девичник wrapped with top+bottom border lines -->
                 <div style="position: relative; z-index: 20; border-top: 1px solid var(--text-color); border-bottom: 1px solid var(--text-color); padding: 6px 0; margin-bottom: 10px;">
                     <h1 class="hero-title" style="margin: 0;">Девичник</h1>
                 </div>
                 <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 10px; font-size: clamp(1.8rem, 7vw, 2.5rem);">Мирамир & Камила<br><span style="font-size: 0.65em; font-family: var(--font-sans); color: var(--text-color); font-weight: 300; letter-spacing: 0.05em;">и</span><br>Шохруз & Севиль</h2>
                 <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20; margin-bottom: 3px;">03.04.2026</p>
-                <p style="font-family: var(--font-sans); font-size: clamp(0.75rem, 2.5vw, 0.9rem); color: var(--text-color); letter-spacing: 0.22em; position: relative; z-index: 20; opacity: 0.6;">18:00 &nbsp;&middot;&nbsp; Ташкент</p>
+                <!-- Ташкент centered, same font/color/size as date -->
+                <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20;">Ташкент</p>
             </div>
 
             <!-- SVG Definitions for Ornate Spring Florals -->
@@ -1027,36 +1052,7 @@
         <h2 class="section-title fade-up serif">Детали Вечера</h2>
         <div class="divider fade-up"></div>
 
-        <div class="calendar-block fade-up">
-            <div class="calendar-header">
-                <span class="calendar-month">Апрель</span>
-                <span class="calendar-year">2026</span>
-            </div>
-            <div class="calendar-days">
-                <span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span>
-            </div>
-            <div class="calendar-grid">
-                <span class="prev-month">30</span>
-                <span class="prev-month">31</span>
-                <span>1</span>
-                <span>2</span>
-                <span class="selected-date">
-                    <span class="date-number">3</span>
-                    <svg class="date-heart" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                </span>
-                <span>4</span>
-                <span>5</span>
-                <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
-                <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
-                <span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span>
-                <span>27</span><span>28</span><span>29</span><span>30</span>
-                <span class="next-month">1</span>
-                <span class="next-month">2</span>
-                <span class="next-month">3</span>
-            </div>
-        </div>
+        <!-- Calendar removed (hidden for now) -->
 
         <div class="info-block fade-up" style="width: 100%; max-width: 600px;">
             <h3 class="info-title">Локация</h3>
@@ -1183,9 +1179,7 @@
                 .fromTo('#hero-text',
                     { opacity: 0, scale: 0.95 },
                     { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }, 0.55)
-                .fromTo('.floating-flower',
-                    { opacity: 0, scale: 0, rotation: -30 },
-                    { opacity: 0.85, scale: 1, rotation: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.5)' }, 0.6)
+                // Flowers are hidden — skip flower animation
                 // 4. Gates dissolve entirely so they don't block scrolling
                 .to('.gates-container', { opacity: 0, duration: 0.4, ease: 'power1.in',
                     onComplete: () => { gatesContainer.style.display = 'none'; } }, 0.85)
@@ -1193,20 +1187,9 @@
                 .to('.scroll-down', { opacity: 0.8, duration: 0.4 }, 1.1);
         }); // end emblem click listener
 
-        // --- Continuous Wiggle for Flowers ---
-        const flowers = gsap.utils.toArray(".floating-flower");
-        flowers.forEach((flower, i) => {
-            gsap.to(flower, {
-                x: () => gsap.utils.random(-10, 10),
-                y: () => gsap.utils.random(-10, 10),
-                rotation: () => gsap.utils.random(-4, 4),
-                duration: () => gsap.utils.random(2.5, 4),
-                yoyo: true,
-                repeat: -1,
-                ease: "sine.inOut",
-                delay: i * 0.2
-            });
-        });
+        // --- Continuous Wiggle for Flowers (disabled — flowers hidden) ---
+        // const flowers = gsap.utils.toArray(".floating-flower");
+        // flowers forEach disabled
 
         // --- Fade Up Elements ---
         gsap.utils.toArray(".fade-up").forEach(elem => {
