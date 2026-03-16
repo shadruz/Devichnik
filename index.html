@@ -57,11 +57,16 @@
             padding: 0;
             margin: 0;
             color: var(--text-color);
-            font-family: var(--font-sans);
+            font-family: var(--font-serif);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            background-image: url('https://www.transparenttextures.com/patterns/p6.png'); /* Subtle matte paper texture */
+            font-variant-numeric: lining-nums;
         }
-
         /* Full-bleed page frame — no outer margin/border */
         .page-frame {
             position: relative;
@@ -797,7 +802,7 @@
         /* Scroll Hint */
         .scroll-down {
             position: absolute;
-            bottom: 30px;
+            bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
             color: var(--text-color);
@@ -872,17 +877,17 @@
                 <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(38vw, 130px); position: relative; z-index: 20; margin-top: 6px; filter: brightness(0) saturate(100%) invert(40%) sepia(35%) saturate(700%) hue-rotate(295deg) brightness(82%);">
 
                 <!-- Invite phrase -->
-                <p style="font-family: var(--font-serif); font-size: clamp(1rem, 4vw, 1.25rem); letter-spacing: 0.12em; color: var(--text-color); position: relative; z-index: 20; margin-bottom: 12px; opacity: 0.9; font-style: italic;">Приглашаем вас разделить с нами радость этого прекрасного события!</p>
+                <p style="font-family: var(--font-serif); font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 0.15em; color: var(--text-color); position: relative; z-index: 20; margin-bottom: 24px; opacity: 1; font-style: italic; font-weight: 700;">Приглашаем вас разделить с нами радость этого прекрасного события!</p>
 
                 <!-- Девичник in script font, bordered -->
-                <div style="position: relative; z-index: 20; border-top: 1px solid var(--text-color); border-bottom: 1px solid var(--text-color); padding: 4px 24px 0px; margin-bottom: 12px;">
-                    <h1 class="script-font" style="margin: 0; font-size: clamp(3.5rem, 18vw, 7.5rem); color: var(--text-color); font-weight: 400; line-height: 1.1;">Девичник</h1>
+                <div style="position: relative; z-index: 20; border-top: 1px solid var(--text-color); border-bottom: 1px solid var(--text-color); padding: 12px 24px; margin-bottom: 12px;">
+                    <h1 class="script-font" style="margin: 0; font-size: clamp(3.5rem, 18vw, 7.5rem); color: var(--text-color); font-weight: 400; line-height: 1;">Девичник</h1>
                 </div>
 
                 <!-- Names -->
-                <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 25px; font-size: clamp(2.2rem, 8vw, 2.8rem);">Мирамир & Камила<br><span style="font-size: 0.75em; font-family: var(--font-sans); color: var(--text-color); font-weight: 400; letter-spacing: 0.05em;">и</span><br>Шохруз & Севиль</h2>
-
-                <p style="font-family: var(--font-serif); font-size: clamp(0.85rem, 3vw, 1rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-color); position: relative; z-index: 20; opacity: 0.75;">Ташкент</p>
+                <h2 class="script-font fade-up" style="font-size: clamp(2.5rem, 10vw, 4.5rem); color: var(--bridgerton-red); margin-top: 10px; margin-bottom: 5px; font-weight: 400; letter-spacing: 0.05em; position: relative; z-index: 20;">Шохрух <span style="font-size: 0.8em; padding: 0 10px; letter-spacing: 0.2em;">и</span> Севиль</h2>
+                
+                <p class="fade-up" style="font-family: var(--font-serif); font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 0.4em; color: var(--text-color); text-transform: uppercase; margin-top: 25px; font-weight: 500; position: relative; z-index: 20;">Ташкент</p>
 
                 <!-- Scroll hint -->
                 <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 0.45; margin-top: 24px; bottom: auto; left: auto; transform: none;">
@@ -998,7 +1003,7 @@
     </section>
 
     <!-- Details Section -->
-    <section class="content-section" id="details" style="padding-top: 20px; position: relative; overflow: visible;">
+    <section class="content-section" id="details" style="padding-top: 0px; position: relative; overflow: visible;">
 
         <div class="info-block fade-up" style="width: 100%; max-width: 600px;">
             <!-- Section heading: Локация in script font -->
@@ -1015,13 +1020,14 @@
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
-            <!-- Dress-code heading in script font -->
-            <h3 class="script-font" style="font-size: clamp(1.6rem, 5vw, 2rem); color: var(--bridgerton-red); font-weight: 400; margin-bottom: 15px;">Дресс-код</h3>
+            <!-- Dress-code heading in script font - Style matched to "Дата" -->
+            <p class="script-font" style="font-size: clamp(2.8rem, 11vw, 3.8rem); color: var(--bridgerton-red); opacity: 0.9; margin-bottom: 15px;">Дресс-код</p>
+            
             <!-- Chic & Gold in strict serif font -->
             <p style="font-family: var(--font-serif); font-size: clamp(1.3rem, 4.5vw, 1.6rem); color: var(--text-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em;">Chic & Gold</p>
 
-            <!-- Info text in script font - Increased Size -->
-            <p class="script-font" style="max-width: 700px; margin: 0 auto; font-size: clamp(1.3rem, 4.5vw, 1.7rem); line-height: 1.4; color: var(--text-color);">Мы знаем, что вы прекрасны в любом наряде, и будем особенно рады, если вы поддержите цветовую гамму нашего торжества.</p>
+            <!-- Info text - Style matched to "Открыть в картах" button but bolder + larger -->
+            <p style="max-width: 700px; margin: 0 auto; font-family: var(--font-serif); font-size: clamp(1.2rem, 4vw, 1.5rem); line-height: 1.4; color: var(--bridgerton-red); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">Мы знаем, что вы прекрасны в любом наряде, и будем особенно рады, если вы поддержите цветовую гамму нашего торжества.</p>
         </div>
     </section>
 
