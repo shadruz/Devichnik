@@ -30,20 +30,15 @@
     <style>
         :root {
             --bg-color: #FAF9F6;
-            --text-color: #1A3021;
-            /* Ultra light warm pastel cream for spring elegance */
+            --text-color: #A34A59;            /* All text = raspberry/maroon */
             --gate-color: #F8F4EE;
             --accent-gold: #D4AF37;
-            --accent-orange: #E67E22;
             --accent-rose: #EEDCD3;
-            /* Soft pastel rose for spring florals */
             --accent-leaf: #B5C4B1;
-            /* Soft sage green for spring leaves */
-            /* Two-font system: script for names, Cormorant Garamond (Felidae-like) for everything else */
             --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
             --font-sans: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
             --font-script: 'Great Vibes', cursive;
-            --bridgerton-red: #A34A59; /* Classic faded society paper red */
+            --bridgerton-red: #A34A59;
         }
 
         * {
@@ -53,84 +48,41 @@
         }
 
         body {
-            background-color: #E6E2D6;
-            padding: 15px; /* Neoclassical borders wrapper padding */
+            background-color: var(--bg-color);
+            /* Matte paper / cardboard texture */
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 300px 300px;
+            padding: 0;
+            margin: 0;
             color: var(--text-color);
             font-family: var(--font-sans);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-        @media (max-width: 600px) { body { padding: 8px; margin: 0; } }
-        
-        /* Classic Bridgerton Society Paper Frame */
+
+        /* Full-bleed page frame — no outer margin/border */
         .page-frame {
             position: relative;
             background-color: var(--bg-color);
-            padding: 55px 45px; 
-            margin: 5% auto;
-            width: 90%; 
-            max-width: 800px;
-            min-height: calc(90vh);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15), inset 0 0 100px rgba(163, 74, 89, 0.05); /* Soft burgundy shadow */
-            overflow: hidden; /* Contains the intricate frames */
-        }
-        @media (max-width: 600px) { 
-            .page-frame { 
-                width: 94%; 
-                margin: 4% auto; 
-                padding: 45px 20px;
-                min-height: calc(92vh); 
-            }
-            .hero-title { font-size: clamp(2.5rem, 8vw, 4rem) !important; }
-            .hero-names { font-size: clamp(1.2rem, 3.5vw, 2rem) !important; }
-        }
-        
-        /* The Outer Dense Floral Border */
-        .page-frame::after {
-            content: '';
-            position: absolute;
-            inset: 6px; 
-            pointer-events: none;
-            z-index: 20;
-            opacity: 0.9;
-            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Cg stroke='%23A34A59' fill='none' stroke-width='1.2' opacity='0.85'%3E%3Cpath d='M0,50 Q25,20 50,50 T100,50'/%3E%3Cpath d='M50,0 Q80,25 50,50 T50,100'/%3E%3Cg transform='translate(50,50)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M0,-4 C-6,-8 -8,0 0,4 C8,0 6,-8 0,-4 Z' stroke-width='1.5'/%3E%3Cpath d='M8,8 C15,12 12,20 8,8 Z' fill='%23A34A59'/%3E%3Cpath d='M-8,-8 C-15,-12 -12,-20 -8,-8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(0,0) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M8,8 C15,12 12,20 8,8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(100,100) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M-8,-8 C-15,-12 -12,-20 -8,-8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(100,0) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M-8,8 C-15,12 -12,20 -8,8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cg transform='translate(0,100) scale(0.8)'%3E%3Cpath d='M-6,-6 C-12,0 0,12 6,6 C12,0 0,-12 -6,-6 Z' fill='%23A34A59' fill-opacity='0.15'/%3E%3Cpath d='M8,-8 C15,-12 12,-20 8,-8 Z' fill='%23A34A59'/%3E%3C/g%3E%3Cpath d='M25,25 C15,35 15,15 25,25 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Cpath d='M75,75 C85,65 85,85 75,75 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Cpath d='M25,75 C15,65 35,65 25,75 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Cpath d='M75,25 C85,35 65,35 75,25 Z' fill='%23A34A59' fill-opacity='0.6'/%3E%3Ccircle cx='20' cy='50' r='2' fill='%23A34A59'/%3E%3Ccircle cx='80' cy='50' r='2' fill='%23A34A59'/%3E%3Ccircle cx='50' cy='20' r='2' fill='%23A34A59'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23A34A59'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: 70px; 
-            /* Hollow center mask to only show flowers on the outer 20px edge */
-            -webkit-mask-image: 
-                linear-gradient(#000, #000), linear-gradient(#000, #000),
-                linear-gradient(#000, #000), linear-gradient(#000, #000);
-            -webkit-mask-position: top, bottom, left, right;
-            -webkit-mask-size: 100% 20px, 100% 20px, 20px 100%, 20px 100%;
-            -webkit-mask-repeat: no-repeat;
-            mask-image: 
-                linear-gradient(#000, #000), linear-gradient(#000, #000),
-                linear-gradient(#000, #000), linear-gradient(#000, #000);
-            mask-position: top, bottom, left, right;
-            mask-size: 100% 20px, 100% 20px, 20px 100%, 20px 100%;
-            mask-repeat: no-repeat;
-        }
-
-        /* The Bridgerton Elegant Double Line Frame */
-        .page-frame::before {
-            content: '';
-            position: absolute;
-            /* Inset: 6px edge + 20px floral + 4px gap = 30px from edge */
-            inset: 30px; 
-            border: 1.5px solid var(--bridgerton-red);
-            /* Inner 0.5px line with 3px gap */
-            box-shadow: inset 0 0 0 3px transparent, inset 0 0 0 3.5px var(--bridgerton-red);
-            border-radius: 0;
-            pointer-events: none;
-            z-index: 30;
+            padding: 55px 45px;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
         }
         @media (max-width: 600px) {
-            .page-frame::after { 
-                inset: 4px; 
-                -webkit-mask-size: 100% 16px, 100% 16px, 16px 100%, 16px 100%; 
-                mask-size: 100% 16px, 100% 16px, 16px 100%, 16px 100%; 
-                background-size: 50px; 
+            .page-frame {
+                padding: 45px 20px;
             }
-            .page-frame::before { inset: 23px; box-shadow: inset 0 0 0 2px transparent, inset 0 0 0 2.5px var(--bridgerton-red); }
+        }
+        
+        /* Floral border ornaments removed */
+        .page-frame::after,
+        .page-frame::before {
+            display: none; /* Ornate border and floral ornaments removed */
         }
         
         /* Hide old neoclassical corners */
@@ -243,20 +195,20 @@
         .rsvp-card-text { flex: 1; }
 
         
-        /* --- Hero Wrapper: fills full viewport so nothing below is visible --- */
+        /* --- Hero Wrapper --- */
         .hero-wrapper {
             position: relative;
-            height: calc(100vh + 110px); /* extra height to compensate large pull-up */
+            height: calc(100vh + 110px);
             overflow: hidden;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* content anchors to top so logo is near top */
-            padding-top: 10px;
+            align-items: flex-start;
+            padding-top: 0;
+            /* pull up to bleed edge-to-edge (page-frame padding is 55px top, 45px sides) */
             margin-top: -55px;
             margin-left: -45px;
             margin-right: -45px;
             width: calc(100% + 90px);
-            border-radius: 4px 4px 0 0;
             background-color: var(--bg-color);
         }
         @media (max-width: 600px) {
@@ -266,7 +218,6 @@
                 margin-right: -20px;
                 width: calc(100% + 40px);
                 height: calc(100vh + 50px);
-                padding-top: 8px;
             }
         }
         
@@ -465,16 +416,16 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;  /* logo starts from top, not center */
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             z-index: 10;
             padding: 20px;
-            padding-top: clamp(35px, 5vh, 55px); /* just enough to clear the frame border */
+            padding-top: 18px; /* tight to top — no outer frame to clear anymore */
         }
         @media (max-width: 600px) {
             .hero-content {
-                padding-top: 28px; /* clear the mobile frame border (≈23px) + tiny gap */
+                padding-top: 12px;
             }
         }
 
@@ -917,23 +868,27 @@
                 <svg class="floating-flower f-bot-left" viewBox="-50 -50 100 100" style="width: min(30vw, 150px); opacity: 0.85;"><use href="#floating-bouquet" transform="rotate(85) scale(0.8)"/></svg>
                 <svg class="floating-flower f-bot-right" viewBox="-50 -50 100 100" style="width: min(25vw, 120px); opacity: 0.85;"><use href="#flower-spring" transform="scale(1.1) rotate(20)"/></svg>
 
-                <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(40vw, 140px); position: relative; z-index: 20; margin-top: 10px;">
-                <!-- "Приглашаем вас на" above Девичник — bigger, bolder -->
-                <p class="hero-welcome" style="font-size: clamp(0.75rem, 3vw, 1rem); letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.75; margin-bottom: 6px; position: relative; z-index: 20; font-family: var(--font-sans); font-weight: 500;">Приглашаем вас на</p>
-                <!-- Девичник wrapped with top+bottom border lines -->
-                <div style="position: relative; z-index: 20; border-top: 1px solid var(--text-color); border-bottom: 1px solid var(--text-color); padding: 6px 0; margin-bottom: 10px;">
-                    <h1 class="hero-title" style="margin: 0;">Девичник</h1>
-                </div>
-                <!-- Names — bigger on mobile via clamp, "и" also bigger -->
-                <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 10px; font-size: clamp(2.2rem, 8vw, 2.8rem);">Мирамир & Камила<br><span style="font-size: 0.75em; font-family: var(--font-sans); color: var(--text-color); font-weight: 400; letter-spacing: 0.05em;">и</span><br>Шохруз & Севиль</h2>
-                <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20; margin-bottom: 3px;">03.04.2026</p>
-                <!-- 18:00 in same gold serif style as the date -->
-                <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20;">18:00</p>
+                <!-- Logo tinted raspberry via CSS filter (logo.png is black) -->
+                <img src="logo.png?v=4" alt="Лого" class="hero-logo" style="width: min(38vw, 130px); position: relative; z-index: 20; margin-top: 6px; filter: brightness(0) saturate(100%) invert(40%) sepia(35%) saturate(700%) hue-rotate(295deg) brightness(82%);">
 
-                <!-- Scroll hint: inside flex flow, hugs content from below -->
-                <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 0.55; text-shadow: none; margin-top: 28px; bottom: auto; left: auto; transform: none;">
+                <!-- Invite phrase -->
+                <p style="font-family: var(--font-serif); font-size: clamp(0.75rem, 2.8vw, 0.95rem); letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-color); position: relative; z-index: 20; margin-bottom: 8px; opacity: 0.85;">ПРИГЛАШАЕМ ВАС НА</p>
+
+                <!-- Девичник in script font, bordered -->
+                <div style="position: relative; z-index: 20; border-top: 1px solid var(--text-color); border-bottom: 1px solid var(--text-color); padding: 4px 24px; margin-bottom: 10px;">
+                    <h1 class="script-font" style="margin: 0; font-size: clamp(2.8rem, 11vw, 5rem); color: var(--text-color); font-weight: 400;">Девичник</h1>
+                </div>
+
+                <!-- Names -->
+                <h2 class="hero-names script-font" style="position: relative; z-index: 20; margin-bottom: 10px; font-size: clamp(2.2rem, 8vw, 2.8rem);">Мирамир & Камила<br><span style="font-size: 0.75em; font-family: var(--font-sans); color: var(--text-color); font-weight: 400; letter-spacing: 0.05em;">и</span><br>Шохруз & Севиль</h2>
+
+                <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.8rem); color: var(--accent-gold); letter-spacing: 0.15em; position: relative; z-index: 20; margin-bottom: 3px;">03.04.2026</p>
+                <p style="font-family: var(--font-serif); font-size: clamp(0.85rem, 3vw, 1rem); letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-color); position: relative; z-index: 20; opacity: 0.75; margin-top: 4px;">Ташкент</p>
+
+                <!-- Scroll hint -->
+                <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 0.45; margin-top: 24px; bottom: auto; left: auto; transform: none;">
                     Вниз
-                    <div class="scroll-line" style="background: rgba(26,48,33,0.35);"></div>
+                    <div class="scroll-line" style="background: rgba(163,74,89,0.3);"></div>
                 </div>
             </div>
 
@@ -1005,19 +960,13 @@
 
         </section>
 
-    <!-- Intro / Welcome Section -->
-    <section class="content-section" id="intro" style="padding-top: 50px; padding-bottom: 35px;">
-        <div class="divider fade-up"></div>
-        <h2 class="section-title fade-up serif" style="margin-bottom: 18px;">Наш праздник начинается здесь</h2>
-        <div class="divider fade-up"></div>
-        <p class="info-text fade-up" style="max-width: 560px; font-size: clamp(0.9rem, 3vw, 1rem); line-height: 1.8; text-align: center; margin-top: 18px;">
-            Дорогие и самые близкие! Прежде чем мы скажем друг другу «Да», мы хотим провести этот особенный вечер в кругу тех, кто нам по-настоящему дорог. Это будет вечер тёплых воспоминаний, искренних улыбок и красивых разговоров. С нетерпением ждём встречи с вами!
-        </p>
-    </section>
+    <!-- Intro section removed -->
 
     <!-- Countdown Timer Section -->
     <section class="content-section" id="countdown-section" style="padding: 25px 20px 35px;">
-        <p class="fade-up" style="font-family: var(--font-serif); font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--bridgerton-red); opacity: 0.85; margin-bottom: 22px;">До начала вечера</p>
+        <!-- Date above the countdown -->
+        <p class="fade-up" style="font-family: var(--font-serif); font-size: clamp(1.8rem, 7vw, 2.6rem); color: var(--accent-gold); letter-spacing: 0.18em; margin-bottom: 4px;">03 · 04 · 2026</p>
+        <p class="fade-up" style="font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--bridgerton-red); opacity: 0.8; margin-bottom: 22px;">До начала вечера</p>
         <div class="countdown-grid fade-up" id="countdown">
             <div class="countdown-unit">
                 <span class="countdown-num" id="cd-days">--</span>
@@ -1043,20 +992,12 @@
 
     <!-- Details Section -->
     <section class="content-section" id="details" style="padding-top: 40px; position: relative; overflow: visible;">
-        <!-- Delicate floating flora drifting behind text content -->
-        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 10%; left: -5%; width: min(30vw, 120px); opacity: 0.6; z-index: 5;"><use href="#leaf-gold" transform="rotate(20)"/></svg>
-        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 55%; right: -5%; width: min(35vw, 150px); opacity: 0.6; z-index: 5;"><use href="#floating-bouquet" transform="rotate(-40) scale(0.8)"/></svg>
-        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 85%; left: 10%; width: min(25vw, 90px); opacity: 0.6; z-index: 5;"><use href="#flower-spring" transform="rotate(60)"/></svg>
-
-        <h2 class="section-title fade-up serif">Детали Вечера</h2>
-        <div class="divider fade-up"></div>
-
-        <!-- Calendar removed (hidden for now) -->
 
         <div class="info-block fade-up" style="width: 100%; max-width: 600px;">
-            <h3 class="info-title">Локация</h3>
-            <p class="info-text" style="font-size: 1.5rem;">Ресторан Бехруз</p>
-            <p class="info-text">Начало вечера в 18:00</p>
+            <!-- Section heading: Локация -->
+            <h3 style="font-family: var(--font-serif); font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bridgerton-red); font-weight: 400; margin-bottom: 14px;">Локация</h3>
+            <!-- Restaurant in script font -->
+            <p class="script-font" style="font-size: clamp(1.7rem, 6vw, 2.4rem); color: var(--text-color); margin-bottom: 4px;">«Бехруз»</p>
             
             <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid var(--accent-gold); margin-top: 25px;">
                 <!-- Updated map to precise location of Behruz Resotoran on Oltintepa Street 28 -->
@@ -1067,7 +1008,7 @@
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
-            <h3 class="info-title">Дресс-код</h3>
+            <h3 style="font-family: var(--font-serif); font-size: 1.1rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bridgerton-red); font-weight: 400; margin-bottom: 14px;">Дресс-код</h3>
             <p class="info-text serif" style="font-size: 1.4rem; color: var(--text-color);">Chic & Gold</p>
 
             <div class="colors-container">
@@ -1085,11 +1026,6 @@
 
     <!-- RSVP Section -->
     <section class="content-section" id="rsvp" style="background-color: transparent; position: relative; overflow: visible;">
-        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 35%; right: -10%; width: min(32vw, 140px); opacity: 0.5; z-index: 5;"><use href="#floating-bouquet" transform="rotate(70) scale(0.85)"/></svg>
-        <svg class="floating-flower" viewBox="-50 -50 100 100" style="position: absolute; top: 65%; left: -5%; width: min(20vw, 100px); opacity: 0.5; z-index: 5;"><use href="#leaf-soft" transform="rotate(-15) scale(1.2)"/></svg>
-
-        <h2 class="section-title fade-up serif">Save the Date</h2>
-        <p class="fade-up" style="font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--bridgerton-red); letter-spacing: 0.06em; margin-bottom: 22px; margin-top: -14px;">Confirmation</p>
         <div class="divider fade-up"></div>
         <p class="info-text fade-up" style="margin-bottom: 28px; font-size: clamp(1rem, 3.5vw, 1.05rem);">Пожалуйста, подтвердите ваше присутствие.</p>
 
@@ -1105,24 +1041,18 @@
                 <input type="hidden" id="attendanceStatus" required>
                 <div class="rsvp-cards" id="rsvpCards">
                     <button type="button" class="rsvp-card" data-value="С удовольствием приду">
-                        <span class="rsvp-card-icon">&#9829;</span>
                         <span class="rsvp-card-text">С удовольствием приду</span>
                     </button>
-                    <button type="button" class="rsvp-card" data-value="Буду с парой">
-                        <span class="rsvp-card-icon">&#10046;</span>
-                        <span class="rsvp-card-text">Буду с парой</span>
-                    </button>
                     <button type="button" class="rsvp-card" data-value="К сожалению, не смогу">
-                        <span class="rsvp-card-icon">&#128148;</span>
                         <span class="rsvp-card-text">К сожалению, не смогу</span>
+                    </button>
+                    <button type="button" class="rsvp-card" data-value="Сообщу позже">
+                        <span class="rsvp-card-text">Сообщу позже</span>
                     </button>
                 </div>
             </div>
 
-            <div class="form-group" id="partnerGroup" style="display: none;">
-                <label class="form-label">Имя спутника / спутницы</label>
-                <input type="text" id="partnerName" class="form-input" placeholder="Имя спутника/спутницы">
-            </div>
+            <!-- Partner group removed -->
 
             <button type="submit" class="btn" style="width: 100%; margin-top: 10px;" id="submitBtn">Отправить</button>
             <p id="formStatus" style="text-align: center; margin-top: 15px; font-size: 0.9rem; display: none;"></p>
