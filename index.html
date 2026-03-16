@@ -22,8 +22,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <!-- Felidae Regular & Anastasia Script via local or CDN fallback -->
     <style>
-        /* Felidae Regular — loaded via Google Fonts alternative or self-hosted */
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+        /* Modern fonts import */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@400;600;700&display=swap');
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -36,8 +36,9 @@
             --accent-rose: #EEDCD3;
             --accent-leaf: #B5C4B1;
             --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-            --font-sans: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --font-sans: 'Montserrat', sans-serif;
             --font-script: 'Great Vibes', cursive;
+            --font-digits: 'Montserrat', sans-serif;
             --bridgerton-red: #A34A59;
         }
 
@@ -125,9 +126,9 @@
             min-width: 60px;
         }
         .countdown-num {
-            font-family: var(--font-serif);
+            font-family: var(--font-digits);
             font-size: clamp(2.2rem, 8vw, 3.8rem);
-            font-weight: 400;
+            font-weight: 700;
             color: var(--text-color);
             line-height: 1;
         }
@@ -617,6 +618,7 @@
 
         .calendar-year {
             color: var(--accent-gold);
+            font-family: var(--font-digits);
         }
 
         .calendar-days {
@@ -628,6 +630,7 @@
             font-weight: 500;
             color: var(--accent-gold);
             text-align: center;
+            font-family: var(--font-sans);
         }
 
         .calendar-grid {
@@ -637,7 +640,7 @@
             font-size: 1.1rem;
             row-gap: 20px;
             text-align: center;
-            font-family: var(--font-serif);
+            font-family: var(--font-digits);
         }
 
         .calendar-grid span {
@@ -971,7 +974,7 @@
         <!-- Date with horizontal lines -->
         <div class="fade-up" style="width: 100%; max-width: 360px; margin: 0 auto 15px;">
             <div style="height: 1px; background: var(--accent-gold); opacity: 0.45; width: 100%; margin-bottom: 14px;"></div>
-            <p style="font-family: var(--font-serif); font-size: clamp(1.6rem, 7vw, 2.4rem); color: var(--accent-gold); letter-spacing: 0.05em; margin: 0;">Апрель 1 · 2026 <span style="opacity: 0.5; padding: 0 5px;">|</span> 18:30</p>
+            <p style="font-family: var(--font-digits); font-size: clamp(1.4rem, 6vw, 2.1rem); color: var(--accent-gold); font-weight: 600; letter-spacing: 0.05em; margin: 0;">Апрель 1 · 2026 <span style="opacity: 0.5; padding: 0 5px;">|</span> 18:30</p>
             <div style="height: 1px; background: var(--accent-gold); opacity: 0.45; width: 100%; margin-top: 14px;"></div>
         </div>
 
@@ -1022,8 +1025,8 @@
             <!-- Chic & Gold in strict serif font -->
             <p style="font-family: var(--font-serif); font-size: clamp(1.3rem, 4.5vw, 1.6rem); color: var(--text-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em;">Chic & Gold</p>
 
-            <!-- Info text in script font - Increased Size -->
-            <p class="script-font" style="max-width: 700px; margin: 0 auto; font-size: clamp(1.3rem, 4.5vw, 1.7rem); line-height: 1.4; color: var(--text-color);">Мы знаем, что вы прекрасны в любом наряде, и будем особенно рады, если вы поддержите цветовую гамму нашего торжества.</p>
+            <!-- Info text - Bold, Gold, Montserrat (matching button style) -->
+            <p style="max-width: 700px; margin: 0 auto; font-family: var(--font-sans); font-size: clamp(1rem, 4vw, 1.2rem); line-height: 1.6; color: var(--accent-gold); font-weight: bold;">Мы знаем, что вы прекрасны в любом наряде, и будем особенно рады, если вы поддержите цветовую гамму нашего торжества.</p>
         </div>
     </section>
 
