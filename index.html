@@ -74,10 +74,34 @@
             min-height: 100vh;
             overflow: hidden;
         }
-        /* Floral border ornaments removed */
-        .page-frame::after,
+        /* Side Ornaments Border */
         .page-frame::before {
-            display: none;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15px; /* adjust width for thickness */
+            height: 100%;
+            background-image: url('left.png');
+            background-repeat: repeat-y;
+            background-size: contain;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .page-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 15px; /* adjust width for thickness */
+            height: 100%;
+            background-image: url('right.png');
+            background-repeat: repeat-y;
+            background-size: contain;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
         }
         
         /* Hide old neoclassical corners */
@@ -1044,7 +1068,7 @@
 
     <!-- Final Image Section - Sisters Final Edge-to-Edge -->
     <section class="fade-up footer-image-container">
-        <img src="sisters2.png" alt="Sisters" style="width: 100%; height: auto; display: block; filter: drop-shadow(0 -5px 30px rgba(163, 74, 89, 0.15)); position: relative; z-index: 20;">
+        <img src="sisters2.png" alt="Sisters" style="width: 100%; height: auto; display: block; position: relative; z-index: 20;">
     </section>
 
     <script>
