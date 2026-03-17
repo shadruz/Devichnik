@@ -80,7 +80,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 45px; /* increased 3x for prominence */
+            width: 60px; /* increased 4x for prominence */
             height: 100%;
             background-image: url('left.png');
             background-repeat: repeat-y;
@@ -94,7 +94,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 45px; /* increased 3x for prominence */
+            width: 60px; /* increased 4x for prominence */
             height: 100%;
             background-image: url('right.png');
             background-repeat: repeat-y;
@@ -925,9 +925,15 @@
 
                 <!-- Scroll hint -->
                 <!-- Scroll hint - Bold and larger -->
-                <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 1; margin-top: 20px; font-weight: bold; font-size: 1.1rem; bottom: auto; left: auto; transform: none; letter-spacing: 0.15em;">
-                    ВНИЗ
-                    <div class="scroll-line" style="background: var(--bridgerton-red); height: 50px; margin-top: 10px;"></div>
+                <div class="scroll-hint-wrapper" style="position: relative; display: inline-block;">
+                    <!-- Floral 2 (Left) and 3 (Right) around scroll hint -->
+                    <img src="2.png" class="fade-up" style="position: absolute; left: -100px; top: -10px; width: clamp(60px, 15vw, 90px); pointer-events: none; opacity: 0.8;">
+                    <img src="3.png" class="fade-up" style="position: absolute; right: -100px; top: -10px; width: clamp(60px, 15vw, 90px); pointer-events: none; opacity: 0.8;">
+                    
+                    <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 1; margin-top: 20px; font-weight: bold; font-size: 1.1rem; bottom: auto; left: auto; transform: none; letter-spacing: 0.15em;">
+                        ВНИЗ
+                        <div class="scroll-line" style="background: var(--bridgerton-red); height: 50px; margin-top: 10px;"></div>
+                    </div>
                 </div>
             </div>
 
@@ -1042,8 +1048,11 @@
     <section class="content-section" id="details" style="padding-top: 20px; position: relative; overflow: visible;">
 
         <div class="info-block fade-up" style="width: 100%; max-width: 600px;">
-            <!-- Section heading: Локация in script font -->
-            <h3 class="script-font" style="font-size: clamp(2.5rem, 9vw, 3.2rem); color: var(--bridgerton-red); font-weight: 400; margin-bottom: 0px; letter-spacing: 0.02em;">Локация</h3>
+            <!-- Section heading: Локация with Floral 4 (Left) -->
+            <div style="position: relative; display: inline-block;">
+                <img src="4.png" class="fade-up" style="position: absolute; left: -70px; top: -10px; width: 60px; pointer-events: none; opacity: 0.7; transform: rotate(-15deg);">
+                <h3 class="script-font" style="font-size: clamp(2.5rem, 9vw, 3.2rem); color: var(--bridgerton-red); font-weight: 400; margin-bottom: 0px; letter-spacing: 0.02em;">Локация</h3>
+            </div>
             <!-- Restaurant in serif font -->
             <p style="font-family: var(--font-serif); font-size: clamp(1.2rem, 4.5vw, 1.6rem); color: var(--text-color); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.15em;">Ресторан «Бехруз»</p>
             
@@ -1051,8 +1060,12 @@
                 <!-- Updated map to precise location of Behruz Resotoran on Oltintepa Street 28 -->
                 <iframe src="https://yandex.ru/map-widget/v1/?ll=69.327822%2C41.310929&mode=whatshere&whatshere%5Bpoint%5D=69.327822%2C41.310929&whatshere%5Bzoom%5D=18&z=18" width="100%" height="350" frameborder="0" style="display: block;"></iframe>
             </div>
-            <a href="https://yandex.com/maps/org/76740654566" target="_blank" class="btn btn-gold"
-                style="margin-top: 20px;">Открыть в картах</a>
+            <div style="position: relative; width: 100%;">
+                <a href="https://yandex.com/maps/org/76740654566" target="_blank" class="btn btn-gold"
+                    style="margin-top: 20px;">Открыть в картах</a>
+                <!-- Floral 4 (Right) between Map and Dress-code -->
+                <img src="4.png" class="fade-up" style="position: absolute; right: -40px; bottom: -60px; width: 80px; pointer-events: none; opacity: 0.7; transform: rotate(15deg);">
+            </div>
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
