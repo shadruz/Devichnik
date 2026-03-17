@@ -109,7 +109,7 @@
 
         @media (max-width: 600px) {
             .page-frame {
-                padding: 45px 65px; /* Increased to prevent borders (60px) from clipping text */
+                padding: 45px 20px;
             }
         }
 
@@ -926,9 +926,9 @@
                 <!-- Scroll hint -->
                 <!-- Scroll hint - Bold and larger -->
                 <div class="scroll-hint-wrapper" style="position: relative; display: inline-block;">
-                    <!-- Floral 2 (Left) and 3 (Right) around scroll hint - Enlarged 3x and moved lower -->
-                    <img src="2.png" class="fade-up" style="position: absolute; left: -150px; bottom: -60px; width: clamp(180px, 45vw, 270px); pointer-events: none; opacity: 0.8; z-index: 10;">
-                    <img src="3.png" class="fade-up" style="position: absolute; right: -150px; bottom: -60px; width: clamp(180px, 45vw, 270px); pointer-events: none; opacity: 0.8; z-index: 10;">
+                    <!-- Floral 2 (Left) and 3 (Right) around scroll hint - Adjusted to 2.5x original size -->
+                    <img src="2.png" class="fade-up" style="position: absolute; left: -140px; bottom: 0; width: clamp(150px, 37.5vw, 225px); pointer-events: none; opacity: 0.8; z-index: 10;">
+                    <img src="3.png" class="fade-up" style="position: absolute; right: -140px; bottom: 0; width: clamp(150px, 37.5vw, 225px); pointer-events: none; opacity: 0.8; z-index: 10;">
                     
                     <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 1; margin-top: 20px; font-weight: bold; font-size: 1.1rem; bottom: auto; left: auto; transform: none; letter-spacing: 0.15em;">
                         ВНИЗ
@@ -1067,11 +1067,10 @@
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
-            <!-- Dress-code heading with Floral 5 (Left) and 4 (Right) -->
+            <!-- Dress-code heading with Floral 5 (Left) -->
             <div style="position: relative; display: inline-block;">
                 <img src="5.png" class="fade-up" style="position: absolute; left: -100px; top: -15px; width: clamp(80px, 20vw, 110px); pointer-events: none; opacity: 0.8;">
-                <p class="script-font" style="font-size: clamp(2.8rem, 11vw, 3.8rem); color: var(--bridgerton-red); opacity: 0.9; margin-bottom: 5px;">Дресс-код</p>
-                <img src="4.png" class="fade-up" style="position: absolute; right: -100px; top: -15px; width: clamp(80px, 20vw, 110px); pointer-events: none; opacity: 0.8;">
+                <p class="script-font" style="font-size: clamp(2.8rem, 11vw, 3.8rem); color: var(--bridgerton-red); opacity: 0.9; margin-bottom: 5px; padding-right: 0.15em; overflow: visible;">Дресс-код</p>
             </div>
             <!-- Chic & Gold in strict serif font -->
             <p style="font-family: var(--font-serif); font-size: clamp(1.3rem, 4.5vw, 1.6rem); color: var(--text-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em;">Chic & Gold</p>
