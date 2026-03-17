@@ -926,9 +926,9 @@
                 <!-- Scroll hint -->
                 <!-- Scroll hint - Bold and larger -->
                 <div class="scroll-hint-wrapper" style="position: relative; display: inline-block;">
-                    <!-- Floral 2 (Left) and 3 (Right) around scroll hint -->
-                    <img src="2.png" class="fade-up" style="position: absolute; left: -100px; top: -10px; width: clamp(60px, 15vw, 90px); pointer-events: none; opacity: 0.8;">
-                    <img src="3.png" class="fade-up" style="position: absolute; right: -100px; top: -10px; width: clamp(60px, 15vw, 90px); pointer-events: none; opacity: 0.8;">
+                    <!-- Floral 2 (Left) and 3 (Right) around scroll hint - Enlarged 3x and moved lower -->
+                    <img src="2.png" class="fade-up" style="position: absolute; left: -150px; bottom: -60px; width: clamp(180px, 45vw, 270px); pointer-events: none; opacity: 0.8; z-index: 10;">
+                    <img src="3.png" class="fade-up" style="position: absolute; right: -150px; bottom: -60px; width: clamp(180px, 45vw, 270px); pointer-events: none; opacity: 0.8; z-index: 10;">
                     
                     <div class="scroll-down" style="position: relative; z-index: 50; color: var(--text-color); opacity: 1; margin-top: 20px; font-weight: bold; font-size: 1.1rem; bottom: auto; left: auto; transform: none; letter-spacing: 0.15em;">
                         ВНИЗ
@@ -1063,14 +1063,15 @@
             <div style="position: relative; width: 100%;">
                 <a href="https://yandex.com/maps/org/76740654566" target="_blank" class="btn btn-gold"
                     style="margin-top: 20px;">Открыть в картах</a>
-                <!-- Floral 4 (Right) between Map and Dress-code -->
-                <img src="4.png" class="fade-up" style="position: absolute; right: -40px; bottom: -60px; width: 80px; pointer-events: none; opacity: 0.7; transform: rotate(15deg);">
             </div>
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
-            <!-- Dress-code heading in script font - Size matches "Дата" -->
-            <p class="script-font" style="font-size: clamp(2.8rem, 11vw, 3.8rem); color: var(--bridgerton-red); opacity: 0.9; margin-bottom: 5px;">Дресс-код</p>
+            <!-- Dress-code heading with Floral 5 (Left) -->
+            <div style="position: relative; display: inline-block;">
+                <img src="5.png" class="fade-up" style="position: absolute; left: -100px; top: -15px; width: clamp(80px, 20vw, 110px); pointer-events: none; opacity: 0.8;">
+                <p class="script-font" style="font-size: clamp(2.8rem, 11vw, 3.8rem); color: var(--bridgerton-red); opacity: 0.9; margin-bottom: 5px;">Дресс-код</p>
+            </div>
             <!-- Chic & Gold in strict serif font -->
             <p style="font-family: var(--font-serif); font-size: clamp(1.3rem, 4.5vw, 1.6rem); color: var(--text-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em;">Chic & Gold</p>
 
