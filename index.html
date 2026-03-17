@@ -109,7 +109,7 @@
 
         @media (max-width: 600px) {
             .page-frame {
-                padding: 45px 20px;
+                padding: 45px 65px; /* Increased to prevent borders (60px) from clipping text */
             }
         }
 
@@ -1067,10 +1067,11 @@
         </div>
 
         <div class="info-block fade-up" style="margin-top: 50px;">
-            <!-- Dress-code heading with Floral 5 (Left) -->
+            <!-- Dress-code heading with Floral 5 (Left) and 4 (Right) -->
             <div style="position: relative; display: inline-block;">
                 <img src="5.png" class="fade-up" style="position: absolute; left: -100px; top: -15px; width: clamp(80px, 20vw, 110px); pointer-events: none; opacity: 0.8;">
                 <p class="script-font" style="font-size: clamp(2.8rem, 11vw, 3.8rem); color: var(--bridgerton-red); opacity: 0.9; margin-bottom: 5px;">Дресс-код</p>
+                <img src="4.png" class="fade-up" style="position: absolute; right: -100px; top: -15px; width: clamp(80px, 20vw, 110px); pointer-events: none; opacity: 0.8;">
             </div>
             <!-- Chic & Gold in strict serif font -->
             <p style="font-family: var(--font-serif); font-size: clamp(1.3rem, 4.5vw, 1.6rem); color: var(--text-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em;">Chic & Gold</p>
