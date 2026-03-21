@@ -889,6 +889,10 @@
 </head>
 
 <body>
+    <!-- Фоновая музыка -->
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Neoclassical Outer Frame wrapping the entire page content -->
     <div class="page-frame">
@@ -990,12 +994,13 @@
                     <div class="gate-center-glow"></div>
                 </div>
                 <!-- Top Center Emblem acts as the gate lock -->
-                <div class="top-emblem-section">
+                <div class="top-emblem-section" style="flex-direction: column;">
                     <div class="emblem-circle">
                         <svg class="emblem-silhouette" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                         </svg>
                     </div>
+                    <div style="margin-top: 15px; color: var(--bridgerton-red); font-family: var(--font-sans); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; opacity: 0.9;">Нажмите</div>
                 </div>
                 <div class="gate gate-right">
                     <svg class="gate-svg-pattern" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -1107,6 +1112,12 @@
         gsap.set('.scroll-down', { opacity: 0 });
 
         emblem.addEventListener('click', () => {
+            // Воспроизведение музыки при клике (браузеры разрешают звук после взаимодействия с сайтом)
+            const bgMusic = document.getElementById('bg-music');
+            if (bgMusic) {
+                bgMusic.play().catch(e => console.log('Audio autoplay prevented:', e));
+            }
+
             // Stop the pulsing animation
             emblem.style.animation = 'none';
 
