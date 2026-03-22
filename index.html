@@ -1116,6 +1116,7 @@
             // Воспроизведение музыки при клике (браузеры разрешают звук после взаимодействия с сайтом)
             const bgMusic = document.getElementById('bg-music');
             if (bgMusic) {
+                bgMusic.currentTime = 3; // Пропуск первых 3 секунд
                 bgMusic.play().catch(e => console.log('Audio autoplay prevented:', e));
             }
 
