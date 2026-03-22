@@ -365,7 +365,7 @@
         /* --- Top Emblem (clickable gate lock) --- */
         .top-emblem-section {
             width: 100%;
-            height: 120px;
+            height: auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -380,9 +380,10 @@
         .emblem-circle {
             width: 70px;
             height: 70px;
+            flex-shrink: 0;
             border-radius: 50%;
             background-color: var(--bridgerton-red);
-            margin: 0 20px;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -391,6 +392,7 @@
             animation: emblemPulse 2.2s ease-in-out infinite;
             position: relative;
         }
+
 
         /* Ripple ring around the button to hint it's tappable */
         .emblem-circle::before {
